@@ -1,0 +1,4 @@
+name: km-duels
+version: '${project.version}'
+main: czescjestemadas.kmduels.Duels
+api-version: '1.19'
