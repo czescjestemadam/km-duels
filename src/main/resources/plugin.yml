@@ -16,6 +16,10 @@ commands:
 permissions:
   km-duels.cmd:
     default: op
+  km-duels.cmd.reload:
+    default: op
+  km-duels.cmd.save:
+    default: op
 
   km-duels.kit.cmd:
     default: op

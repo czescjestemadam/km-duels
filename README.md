@@ -8,6 +8,7 @@ turbo bombing duels beta plugin
 ## commands
 - `/duels` - shows plugin info
 - `/duels reload` - reloads config
+- `/duels save` - saves maps, kits, players
 - `/dkit list` - shows kit names
 - `/dkit <create | remove | info | setItems> <name>` - manages kits
 - `/dkit setDisplayname <minimessage>` - sets kit displayname
