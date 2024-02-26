@@ -72,7 +72,7 @@ public class DMapCommand implements TabExecutor
 			}
 
 			map.setWorld(player.getWorld());
-			map.setPointA(player.getLocation().toVector().toVector3i());
+			map.setPointA(player.getLocation().toVector());
 			map.normalizePoints();
 			sender.sendMessage("set point A to " + map.getPointA());
 			return true;
@@ -87,7 +87,7 @@ public class DMapCommand implements TabExecutor
 			}
 
 			map.setWorld(player.getWorld());
-			map.setPointB(player.getLocation().toVector().toVector3i());
+			map.setPointB(player.getLocation().toVector());
 			map.normalizePoints();
 			sender.sendMessage("set point B to " + map.getPointB());
 			return true;

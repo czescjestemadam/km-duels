@@ -2,8 +2,8 @@ package czescjestemadas.kmduels.maps;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.World;
+import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Vector3i;
 
 import java.lang.ref.WeakReference;
 
@@ -12,8 +12,8 @@ public class DuelMap
 	private final String name;
 	private Component displayname;
 	private WeakReference<World> world;
-	private Vector3i pointA;
-	private Vector3i pointB;
+	private Vector pointA;
+	private Vector pointB;
 
 	public DuelMap(String name, Component displayname)
 	{
@@ -46,22 +46,22 @@ public class DuelMap
 		this.world = new WeakReference<>(world);
 	}
 
-	public Vector3i getPointA()
+	public Vector getPointA()
 	{
 		return pointA;
 	}
 
-	public void setPointA(Vector3i pointA)
+	public void setPointA(Vector pointA)
 	{
 		this.pointA = pointA;
 	}
 
-	public Vector3i getPointB()
+	public Vector getPointB()
 	{
 		return pointB;
 	}
 
-	public void setPointB(Vector3i pointB)
+	public void setPointB(Vector pointB)
 	{
 		this.pointB = pointB;
 	}
@@ -72,15 +72,15 @@ public class DuelMap
 			return;
 
 		final int
-				ax = Math.min(pointA.x, pointB.x),
-				ay = Math.min(pointA.y, pointB.y),
-				az = Math.min(pointA.z, pointB.z),
-				bx = Math.max(pointA.x, pointB.x),
-				by = Math.max(pointA.y, pointB.y),
-				bz = Math.max(pointA.z, pointB.z);
+				ax = Math.min(pointA.getBlockX(), pointB.getBlockX()),
+				ay = Math.min(pointA.getBlockY(), pointB.getBlockY()),
+				az = Math.min(pointA.getBlockZ(), pointB.getBlockZ()),
+				bx = Math.max(pointA.getBlockX(), pointB.getBlockX()),
+				by = Math.max(pointA.getBlockY(), pointB.getBlockY()),
+				bz = Math.max(pointA.getBlockZ(), pointB.getBlockZ());
 
-		pointA = new Vector3i(ax, ay, az);
-		pointB = new Vector3i(bx, by, bz);
+		pointA = new Vector(ax, ay, az);
+		pointB = new Vector(bx, by, bz);
 	}
 
 	@Override
