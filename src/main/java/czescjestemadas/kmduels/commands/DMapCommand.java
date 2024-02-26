@@ -14,6 +14,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+import static czescjestemadas.kmduels.utils.StrUtils.retMatches;
+
 public class DMapCommand implements TabExecutor
 {
 	private final Duels duels;
@@ -128,10 +130,10 @@ public class DMapCommand implements TabExecutor
 	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args)
 	{
 		if (args.length == 1)
-			return List.of("list", "create", "remove", "pointA", "pointB", "setDisplayname", "info");
+			return retMatches(args[0], "list", "create", "remove", "pointA", "pointB", "setDisplayname", "info");
 
 		if (args.length == 2 && (args[0].equalsIgnoreCase("remove") || args[0].startsWith("point") || args[0].equalsIgnoreCase("setDisplayname") || args[0].equalsIgnoreCase("info")))
-			return duels.getMapManager().getMapNames();
+			return retMatches(args[1], duels.getMapManager().getMapNames());
 
 		return List.of();
 	}

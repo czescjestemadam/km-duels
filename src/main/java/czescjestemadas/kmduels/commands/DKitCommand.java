@@ -17,6 +17,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import static czescjestemadas.kmduels.utils.StrUtils.retMatches;
+
 public class DKitCommand implements TabExecutor
 {
 	private final Duels duels;
@@ -113,10 +115,10 @@ public class DKitCommand implements TabExecutor
 	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args)
 	{
 		if (args.length == 1)
-			return List.of("list", "create", "remove", "setDisplayname", "setItems", "info");
+			return retMatches(args[0], "list", "create", "remove", "setDisplayname", "setItems", "info");
 
 		if (args.length == 2 && (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("setDisplayname") || args[0].equalsIgnoreCase("setItems") || args[0].equalsIgnoreCase("info")))
-			return duels.getKitManager().getKitNames();
+			return retMatches(args[1], duels.getKitManager().getKitNames());
 
 		return List.of();
 	}
