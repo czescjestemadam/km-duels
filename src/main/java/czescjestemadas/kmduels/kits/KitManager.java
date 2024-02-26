@@ -35,9 +35,14 @@ public final class KitManager
 		{
 			final ConfigurationSection cfgKit = cfg.getConfigurationSection(name);
 
-			final Component displayname = MiniMessage.miniMessage().deserialize(cfgKit.getString("displayname", name));
-			final ItemStack[] items = cfgKit.getList("items", new ArrayList<>()).toArray(ItemStack[]::new);
-			kits.add(new DuelKit(name, displayname, items));
+			final DuelKit kit = new DuelKit(
+					name,
+					MiniMessage.miniMessage().deserialize(cfgKit.getString("displayname", name)),
+					cfgKit.getList("items", new ArrayList<>()).toArray(ItemStack[]::new)
+			);
+			kit.setBindedMaps(cfgKit.getStringList("binded-maps"));
+
+			kits.add(kit);
 		}
 	}
 
@@ -47,11 +52,12 @@ public final class KitManager
 			return;
 
 		final YamlConfiguration cfg = new YamlConfiguration();
-
 		for (DuelKit kit : kits)
 		{
-			cfg.set(kit.getName() + ".displayname", MiniMessage.miniMessage().serialize(kit.getDisplayname()));
-			cfg.set(kit.getName() + ".items", kit.getItems());
+			final ConfigurationSection cfgKit = cfg.createSection(kit.getName());
+			cfgKit.set("displayname", MiniMessage.miniMessage().serialize(kit.getDisplayname()));
+			cfgKit.set("items", kit.getItems());
+			cfgKit.set("binded-maps", kit.getBindedMaps() == null ? List.of() : kit.getBindedMaps());
 		}
 
 		try

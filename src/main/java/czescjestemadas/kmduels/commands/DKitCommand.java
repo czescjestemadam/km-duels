@@ -2,6 +2,7 @@ package czescjestemadas.kmduels.commands;
 
 import czescjestemadas.kmduels.Duels;
 import czescjestemadas.kmduels.kits.DuelKit;
+import czescjestemadas.kmduels.maps.DuelMap;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -16,6 +17,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static czescjestemadas.kmduels.utils.StrUtils.retMatches;
 import static czescjestemadas.kmduels.utils.StrUtils.argEquals;
@@ -76,7 +78,8 @@ public class DKitCommand implements TabExecutor
 				return true;
 			}
 
-			kit.setDisplayname(MiniMessage.miniMessage().deserialize(args[2]));
+			final String str = String.join(" ", Arrays.copyOfRange(args, 2, args.length));
+			kit.setDisplayname(MiniMessage.miniMessage().deserialize(str));
 			sender.sendMessage(Component.text("set " + name + " displayname to: ").append(kit.getDisplayname()));
 			return true;
 		}
@@ -105,6 +108,7 @@ public class DKitCommand implements TabExecutor
 			sender.sendMessage("name: " + kit.getName());
 			sender.sendMessage(Component.text("displayname: ").append(kit.getDisplayname()));
 			sender.sendMessage("items: " + Arrays.stream(kit.getItems()).filter(Objects::nonNull).toList());
+			sender.sendMessage("binded maps: " + kit.getBindedMaps());
 			return true;
 		}
 		else if (action.equalsIgnoreCase("get") && sender instanceof Player player)
@@ -120,6 +124,28 @@ public class DKitCommand implements TabExecutor
 			sender.sendMessage("got items for kit " + name);
 			return true;
 		}
+		else if (action.equalsIgnoreCase("bindMaps") && sender.hasPermission("km-duels.kit.edit"))
+		{
+			final DuelKit kit = duels.getKitManager().getKit(name);
+			if (kit == null)
+			{
+				sender.sendMessage("kit " + name + " not found");
+				return true;
+			}
+
+			final String[] maps = Arrays.copyOfRange(args, 2, args.length);
+			if (maps.length == 0)
+			{
+				kit.setBindedMaps(List.of());
+				sender.sendMessage("unbinded maps from " + name);
+			}
+			else
+			{
+				kit.setBindedMaps(Arrays.asList(maps));
+				sender.sendMessage("binded " + kit.getBindedMaps() + " to " + name);
+			}
+			return true;
+		}
 
 		sender.sendMessage(help);
 		return true;
@@ -129,10 +155,13 @@ public class DKitCommand implements TabExecutor
 	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args)
 	{
 		if (args.length == 1)
-			return retMatches(args[0], "list", "create", "remove", "setDisplayname", "setItems", "info", "get");
+			return retMatches(args[0], "list", "create", "remove", "setDisplayname", "setItems", "info", "get", "bindMaps");
 
-		if (args.length == 2 && argEquals(args[0], "remove", "setDisplayname", "setItems", "info", "get"))
+		if (args.length == 2 && argEquals(args[0], "remove", "setDisplayname", "setItems", "info", "get", "bindMaps"))
 			return retMatches(args[1], duels.getKitManager().getKitNames());
+
+		if (args.length > 2 && args[0].equalsIgnoreCase("bindMaps"))
+			return retMatches(args[2], duels.getMapManager().getMapNames());
 
 		return List.of();
 	}

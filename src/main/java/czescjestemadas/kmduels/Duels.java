@@ -41,7 +41,6 @@ public final class Duels extends JavaPlugin
 		partyManager = new PartyManager(this);
 
 		fightManager = new FightManager(this);
-		fightManager.loadFightTypes();
 
 		listenerManager = new ListenerManager(this);
 		listenerManager.registerListeners();

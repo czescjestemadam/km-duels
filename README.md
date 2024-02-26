@@ -13,6 +13,7 @@ turbo bombing duels beta plugin
 - `/dkit <create | remove | info | setItems> <name>` - manages kits
 - `/dkit setDisplayname <minimessage>` - sets kit displayname
 - `/dkit get <name>` - sets inventory to kit contents
+- `/dkit bindMaps <name> [maps...]` - bind maps to kit (empty to unbind)
 - `/dmap list` - shows map names
 - `/dmap <create | remove | info> <name>` - manages maps
 - `/dkit setDisplayname <minimessage>` - sets map displayname
@@ -52,6 +53,7 @@ turbo bombing duels beta plugin
 - kits
     - [ ] per player kit items override
     - [ ] better kit edition
+    - [ ] icon
 - listeners
     - [ ] revoke elo on cheat ban
     - [ ] undo revoke on cheat unban
