@@ -5,6 +5,8 @@ turbo bombing duels beta plugin
 
 - api
     - [ ] events
+- commands
+    - [ ] command builder by nodes
 - fights
     - [ ] 1v1
     - [ ] party
