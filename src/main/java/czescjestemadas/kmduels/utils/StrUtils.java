@@ -14,4 +14,15 @@ public class StrUtils
 	{
 		return retMatches(arg, Arrays.asList(args));
 	}
+
+	public static boolean argEquals(String arg, String... args)
+	{
+		for (String listArg : args)
+		{
+			if (arg.equalsIgnoreCase(listArg))
+				return true;
+		}
+
+		return false;
+	}
 }

@@ -18,11 +18,12 @@ import java.util.List;
 import java.util.Objects;
 
 import static czescjestemadas.kmduels.utils.StrUtils.retMatches;
+import static czescjestemadas.kmduels.utils.StrUtils.argEquals;
 
 public class DKitCommand implements TabExecutor
 {
 	private final Duels duels;
-	private final Component help = Component.text("/dkit <create | remove | setDisplayname | setItems> <name>").color(NamedTextColor.RED);
+	private final Component help = Component.text("/dkit <create | remove | setDisplayname | setItems | info | get> <name>").color(NamedTextColor.RED);
 
 	public DKitCommand(Duels duels)
 	{
@@ -106,6 +107,19 @@ public class DKitCommand implements TabExecutor
 			sender.sendMessage("items: " + Arrays.stream(kit.getItems()).filter(Objects::nonNull).toList());
 			return true;
 		}
+		else if (action.equalsIgnoreCase("get") && sender instanceof Player player)
+		{
+			final DuelKit kit = duels.getKitManager().getKit(name);
+			if (kit == null)
+			{
+				sender.sendMessage("kit " + name + " not found");
+				return true;
+			}
+
+			player.getInventory().setContents(kit.getItems());
+			sender.sendMessage("got items for kit " + name);
+			return true;
+		}
 
 		sender.sendMessage(help);
 		return true;
@@ -115,9 +129,9 @@ public class DKitCommand implements TabExecutor
 	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args)
 	{
 		if (args.length == 1)
-			return retMatches(args[0], "list", "create", "remove", "setDisplayname", "setItems", "info");
+			return retMatches(args[0], "list", "create", "remove", "setDisplayname", "setItems", "info", "get");
 
-		if (args.length == 2 && (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("setDisplayname") || args[0].equalsIgnoreCase("setItems") || args[0].equalsIgnoreCase("info")))
+		if (args.length == 2 && argEquals(args[0], "remove", "setDisplayname", "setItems", "info", "get"))
 			return retMatches(args[1], duels.getKitManager().getKitNames());
 
 		return List.of();
