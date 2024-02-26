@@ -1,4 +1,36 @@
 name: km-duels
 version: '${project.version}'
 main: czescjestemadas.kmduels.Duels
+author: czescjestemadas
 api-version: '1.19'
+
+commands:
+  duels:
+    permission: km-duels.cmd
+  dkit:
+    permission: km-duels.kit.cmd
+  dmap:
+    permission: km-duels.map.cmd
+    aliases: [ darena ]
+
+permissions:
+  km-duels.cmd:
+    default: op
+
+  km-duels.kit.cmd:
+    default: op
+  km-duels.kit.create:
+    default: op
+  km-duels.kit.remove:
+    default: op
+  km-duels.kit.edit:
+    default: op
+
+  km-duels.map.cmd:
+    default: op
+  km-duels.map.create:
+    default: op
+  km-duels.map.remove:
+    default: op
+  km-duels.map.edit:
+    default: op
