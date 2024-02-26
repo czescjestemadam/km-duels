@@ -14,6 +14,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+import static czescjestemadas.kmduels.utils.StrUtils.argEquals;
 import static czescjestemadas.kmduels.utils.StrUtils.retMatches;
 
 public class DMapCommand implements TabExecutor
@@ -132,7 +133,7 @@ public class DMapCommand implements TabExecutor
 		if (args.length == 1)
 			return retMatches(args[0], "list", "create", "remove", "pointA", "pointB", "setDisplayname", "info");
 
-		if (args.length == 2 && (args[0].equalsIgnoreCase("remove") || args[0].startsWith("point") || args[0].equalsIgnoreCase("setDisplayname") || args[0].equalsIgnoreCase("info")))
+		if (args.length == 2 && argEquals(args[0], "remove", "point", "setDisplayname", "info"))
 			return retMatches(args[1], duels.getMapManager().getMapNames());
 
 		return List.of();
