@@ -89,6 +89,8 @@ public class DuelMap
 
 	public List<Location> getSpawnPositions()
 	{
+		if (spawnPositions == null)
+			spawnPositions = new ArrayList<>();
 		return spawnPositions;
 	}
 
@@ -99,9 +101,7 @@ public class DuelMap
 
 	public void addSpawnPosition(Location location)
 	{
-		if (spawnPositions == null)
-			spawnPositions = new ArrayList<>();
-		spawnPositions.add(location);
+		getSpawnPositions().add(location);
 	}
 
 	@Override

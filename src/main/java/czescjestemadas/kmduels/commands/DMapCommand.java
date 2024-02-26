@@ -136,6 +136,19 @@ public class DMapCommand implements TabExecutor
 			sender.sendMessage("added spawn position: " + player.getLocation());
 			return true;
 		}
+		else if (action.equalsIgnoreCase("clearSpawnPos") && sender.hasPermission("km-duels.map.edit"))
+		{
+			final DuelMap map = duels.getMapManager().getMap(name);
+			if (map == null)
+			{
+				sender.sendMessage("map " + name + " not found");
+				return true;
+			}
+
+			map.getSpawnPositions().clear();
+			sender.sendMessage("cleared spawn positions of " + name);
+			return true;
+		}
 
 		sender.sendMessage(help);
 		return true;
@@ -145,9 +158,9 @@ public class DMapCommand implements TabExecutor
 	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args)
 	{
 		if (args.length == 1)
-			return retMatches(args[0], "list", "create", "remove", "pointA", "pointB", "setDisplayname", "info", "addSpawnPos");
+			return retMatches(args[0], "list", "create", "remove", "pointA", "pointB", "setDisplayname", "info", "addSpawnPos", "clearSpawnPos");
 
-		if (args.length == 2 && argEquals(args[0], "remove", "point", "setDisplayname", "info", "addSpawnPos"))
+		if (args.length == 2 && argEquals(args[0], "remove", "point", "setDisplayname", "info", "addSpawnPos", "clearSpawnPos"))
 			return retMatches(args[1], duels.getMapManager().getMapNames());
 
 		return List.of();

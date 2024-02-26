@@ -17,6 +17,7 @@ turbo bombing duels beta plugin
 - `/dkit setDisplayname <minimessage>` - sets map displayname
 - `/dmap <pointA | pointB> <name>` - sets map boundaries
 - `/dmap addSpawnPos <name>` - adds player spawn positions to map
+- `/dmap clearSpawnPos <name>` - clears player spawn positions from map
 
 
 ## todo
