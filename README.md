@@ -1,8 +1,25 @@
 # km-duels
 turbo bombing duels beta plugin
 
-### todo
+1. listener/command - guiManager.open - queueManager.queue
+2. queueManager.matchFinder - mapManager.lock - fightManager.start
+3. death/quit listener - fightManager.end - mapManager.unlock
 
+## commands
+- `/duels` - shows plugin info
+- `/duels reload` - reloads config
+- `/dkit list` - shows kit names
+- `/dkit <create | remove | info | setItems> <name>` - manages kits
+- `/dkit setDisplayname <minimessage>` - sets kit displayname
+- `/dkit get <name>` - sets inventory to kit contents
+- `/dmap list` - shows map names
+- `/dmap <create | remove | info> <name>` - manages maps
+- `/dkit setDisplayname <minimessage>` - sets map displayname
+- `/dmap <pointA | pointB> <name>` - sets map boundaries
+- `/dmap addSpawnPos <name>` - adds player spawn positions to map
+
+
+## todo
 - api
     - [ ] events
 - commands
