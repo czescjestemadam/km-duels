@@ -3,8 +3,10 @@ package czescjestemadas.kmduels.maps;
 import czescjestemadas.kmduels.Duels;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.util.Vector;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,6 +40,7 @@ public final class MapManager
 			map.setWorld(duels.getServer().getWorld(cfgMap.getString("world")));
 			map.setPointA(cfgMap.getVector("point-a"));
 			map.setPointB(cfgMap.getVector("point-b"));
+			map.setSpawnPositions((List<Location>)cfgMap.getList("spawn-positions"));
 
 			maps.add(map);
 		}
@@ -56,6 +59,7 @@ public final class MapManager
 			cfgMap.set("world", map.getWorld().getName());
 			cfgMap.set("point-a", map.getPointA());
 			cfgMap.set("point-b", map.getPointB());
+			cfgMap.set("spawn-positions", map.getSpawnPositions());
 		}
 
 		try
