@@ -1,0 +1,55 @@
+# km-duels
+turbo bombing duels beta plugin
+
+### todo
+
+- api
+    - [ ] events
+- fights
+    - [ ] 1v1
+    - [ ] party
+    - [ ] party v party
+    - [ ] ffa
+    - [ ] after fight statistics
+    - [ ] fight history
+    - [ ] spectate after death
+    - [ ] spectate
+    - [ ] command on win/lose
+    - [ ] command on start/end
+    - [ ] win rewards
+    - [ ] time duration limit
+    - [ ] on death effects
+    - [ ] countdown
+- gui
+    - [ ] simple single window gui helper
+    - [ ] multi window gui helper
+    - [ ] fight mode selector
+    - [ ] fight type selector
+    - [ ] kit preview in selector
+    - [ ] fight map selector
+    - [ ] per player kit editor
+- kits
+    - [ ] per player kit items override
+    - [ ] better kit edition
+- listeners
+    - [ ] revoke elo on cheat ban
+    - [ ] undo revoke on cheat unban
+- maps
+    - [ ] better map edition
+    - [ ] regen
+    - [ ] prevent escaping
+    - [ ] death/lose on escape
+- party
+    - [ ] public/private
+    - [ ] command
+    - [ ] player divider
+- players
+    - [ ] stats
+- queue
+    - [ ] elo based queue
+    - [ ] unranked queue
+    - [ ] ping limit
+    - [ ] signs
+- utils
+    - [ ] PlaceholderAPI extension
+    - [ ] vault api
