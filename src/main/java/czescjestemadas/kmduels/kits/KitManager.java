@@ -31,10 +31,9 @@ public final class KitManager
 			return;
 
 		final YamlConfiguration cfg = YamlConfiguration.loadConfiguration(kitsFile);
-		final ConfigurationSection cfgKits = cfg.getConfigurationSection("kits");
-		for (String name : cfgKits.getKeys(false))
+		for (String name : cfg.getKeys(false))
 		{
-			final ConfigurationSection cfgKit = cfgKits.getConfigurationSection(name);
+			final ConfigurationSection cfgKit = cfg.getConfigurationSection(name);
 
 			final Component displayname = MiniMessage.miniMessage().deserialize(cfgKit.getString("displayname", name));
 			final ItemStack[] items = cfgKit.getList("items", new ArrayList<>()).toArray(ItemStack[]::new);
@@ -51,8 +50,8 @@ public final class KitManager
 
 		for (DuelKit kit : kits)
 		{
-			cfg.set("kits." + kit.getName() + ".displayname", MiniMessage.miniMessage().serialize(kit.getDisplayname()));
-			cfg.set("kits." + kit.getName() + ".items", kit.getItems());
+			cfg.set(kit.getName() + ".displayname", MiniMessage.miniMessage().serialize(kit.getDisplayname()));
+			cfg.set(kit.getName() + ".items", kit.getItems());
 		}
 
 		try
