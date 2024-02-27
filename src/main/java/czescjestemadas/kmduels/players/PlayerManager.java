@@ -58,14 +58,14 @@ public final class PlayerManager
 
 		final YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
-
+		player.getStats().load(cfg.getConfigurationSection("stats"));
 	}
 
 	public void savePlayer(DuelPlayer player)
 	{
 		final YamlConfiguration cfg = new YamlConfiguration();
 
-
+		player.getStats().save(cfg.createSection("stats"));
 
 		try
 		{

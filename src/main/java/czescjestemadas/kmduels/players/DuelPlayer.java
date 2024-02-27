@@ -10,6 +10,7 @@ import java.util.UUID;
 public class DuelPlayer
 {
 	private final UUID owner;
+	private final PlayerStats stats = new PlayerStats();
 	private final Map<String, Double> elos = new HashMap<>();
 
 	public DuelPlayer(UUID owner)
@@ -25,6 +26,11 @@ public class DuelPlayer
 	public OfflinePlayer getPlayer()
 	{
 		return Bukkit.getOfflinePlayer(owner);
+	}
+
+	public PlayerStats getStats()
+	{
+		return stats;
 	}
 
 	public Map<String, Double> getElos()
