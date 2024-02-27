@@ -5,5 +5,6 @@ public enum FightState
 	INIT,
 	STARTING,
 	FIGHT,
-	ENDING
+	ENDING,
+	END
 }
