@@ -7,6 +7,7 @@ public final class ConfigManager
 {
 	private final Duels duels;
 
+	private final GuiConfig guiConfig = new GuiConfig();
 	private final MessagesConfig messagesConfig = new MessagesConfig();
 
 	public ConfigManager(Duels duels)
@@ -20,7 +21,13 @@ public final class ConfigManager
 		duels.reloadConfig();
 		final FileConfiguration cfg = duels.getConfig();
 
+		guiConfig.load(cfg.getConfigurationSection("gui"));
 		messagesConfig.load(cfg.getConfigurationSection("messages"));
+	}
+
+	public GuiConfig getGuiConfig()
+	{
+		return guiConfig;
 	}
 
 	public MessagesConfig getMessagesConfig()

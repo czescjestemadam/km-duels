@@ -35,8 +35,19 @@ fights:
     on-lose: ""
 
 gui:
-  hotbar: m
-  jajko: 1
+  hotbar-slots:
+    kit-selector: 0
+
+  selector:
+    kit:
+      size: 27
+      title: "<green>Wybierz kit"
+    map:
+      size: 54
+      title: "<geen>Wybierz mape"
+    fight:
+      size: 54
+      title: "<green>Wybierz walkę"
 
 kits:
   jajko: 1
