@@ -9,6 +9,7 @@ import czescjestemadas.kmduels.listeners.ListenerManager;
 import czescjestemadas.kmduels.maps.MapManager;
 import czescjestemadas.kmduels.party.PartyManager;
 import czescjestemadas.kmduels.players.PlayerManager;
+import czescjestemadas.kmduels.queue.QueueManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Duels extends JavaPlugin
@@ -19,6 +20,7 @@ public final class Duels extends JavaPlugin
 	private MapManager mapManager;
 	private PartyManager partyManager;
 	private FightManager fightManager;
+	private QueueManager queueManager;
 	private ListenerManager listenerManager;
 	private GuiManager guiManager;
 	private CommandManager commandManager;
@@ -41,6 +43,9 @@ public final class Duels extends JavaPlugin
 		partyManager = new PartyManager(this);
 
 		fightManager = new FightManager(this);
+
+		queueManager = new QueueManager(this);
+		queueManager.startMatchFinderTask();
 
 		listenerManager = new ListenerManager(this);
 		listenerManager.registerListeners();
@@ -89,6 +94,11 @@ public final class Duels extends JavaPlugin
 	public FightManager getFightManager()
 	{
 		return fightManager;
+	}
+
+	public QueueManager getQueueManager()
+	{
+		return queueManager;
 	}
 
 	public ListenerManager getListenerManager()

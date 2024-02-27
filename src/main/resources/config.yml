@@ -52,7 +52,9 @@ players:
   default-elo: 1000
 
 queue:
-  a: 1
+  # ticks
+  match-finder-interval: 10
+  max-ping: 200
 
 messages:
   jajo: ""
