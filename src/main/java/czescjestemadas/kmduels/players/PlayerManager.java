@@ -21,6 +21,7 @@ public final class PlayerManager
 	{
 		this.duels = duels;
 		playersDir = new File(duels.getDataFolder(), "players");
+		playersDir.mkdirs();
 	}
 
 	public void loadOnlinePlayers()

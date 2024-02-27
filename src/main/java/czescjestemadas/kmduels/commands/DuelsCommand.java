@@ -3,7 +3,6 @@ package czescjestemadas.kmduels.commands;
 import czescjestemadas.kmduels.Duels;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -28,7 +27,7 @@ public class DuelsCommand implements TabExecutor
 	{
 		if (args.length == 0)
 		{
-			sender.sendMessage(Component.text("KmDuels").decoration(TextDecoration.BOLD, true).color(TextColor.color(153, 187, 234)));
+			sender.sendMessage(Component.text("KmDuels").color(TextColor.color(153, 187, 234)));
 			return true;
 		}
 
