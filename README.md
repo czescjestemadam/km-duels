@@ -14,9 +14,10 @@ turbo bombing duels beta plugin
 - `/dkit setDisplayname <minimessage>` - sets kit displayname
 - `/dkit get <name>` - sets inventory to kit contents
 - `/dkit bindMaps <name> [maps...]` - bind maps to kit (empty to unbind)
+- `/dkit setIcon <name>` - sets kit icon from item in hand
 - `/dmap list` - shows map names
 - `/dmap <create | remove | info> <name>` - manages maps
-- `/dkit setDisplayname <minimessage>` - sets map displayname
+- `/dmap setDisplayname <minimessage>` - sets map displayname
 - `/dmap <pointA | pointB> <name>` - sets map boundaries
 - `/dmap addSpawnPos <name>` - adds player spawn positions to map
 - `/dmap clearSpawnPos <name>` - clears player spawn positions from map
@@ -70,7 +71,6 @@ turbo bombing duels beta plugin
     - [ ] stats
 - queue
     - [ ] elo based queue
-    - [ ] unranked queue
     - [ ] ping limit
     - [ ] signs
 - utils
