@@ -1,7 +1,7 @@
 package czescjestemadas.kmduels.kits;
 
-import czescjestemadas.kmduels.maps.DuelMap;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
@@ -13,6 +13,7 @@ public class DuelKit
 	private Component displayname;
 	private ItemStack[] items;
 	private List<String> bindedMaps;
+	private Material icon;
 
 	public DuelKit(String name, Component displayname, ItemStack[] items)
 	{
@@ -56,6 +57,17 @@ public class DuelKit
 		this.bindedMaps = bindedMaps;
 	}
 
+	public Material getIcon()
+	{
+		return icon;
+	}
+
+	public void setIcon(Material icon)
+	{
+		this.icon = icon;
+	}
+
+
 	@Override
 	public String toString()
 	{
@@ -64,6 +76,7 @@ public class DuelKit
 				", displayname=" + displayname +
 				", items=" + Arrays.toString(items) +
 				", bindedMaps=" + bindedMaps +
+				", icon=" + icon +
 				'}';
 	}
 }

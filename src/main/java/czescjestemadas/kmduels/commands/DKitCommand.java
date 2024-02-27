@@ -109,6 +109,7 @@ public class DKitCommand implements TabExecutor
 			sender.sendMessage(Component.text("displayname: ").append(kit.getDisplayname()));
 			sender.sendMessage("items: " + Arrays.stream(kit.getItems()).filter(Objects::nonNull).toList());
 			sender.sendMessage("binded maps: " + kit.getBindedMaps());
+			sender.sendMessage("icon: " + kit.getIcon());
 			return true;
 		}
 		else if (action.equalsIgnoreCase("get") && sender instanceof Player player)
@@ -146,6 +147,19 @@ public class DKitCommand implements TabExecutor
 			}
 			return true;
 		}
+		else if (action.equalsIgnoreCase("setIcon") && sender.hasPermission("km-duels.kit.edit") && sender instanceof Player player)
+		{
+			final DuelKit kit = duels.getKitManager().getKit(name);
+			if (kit == null)
+			{
+				sender.sendMessage("kit " + name + " not found");
+				return true;
+			}
+
+			kit.setIcon(player.getInventory().getItemInMainHand().getType());
+			sender.sendMessage("set icon to " + kit.getIcon());
+			return true;
+		}
 
 		sender.sendMessage(help);
 		return true;
@@ -155,9 +169,9 @@ public class DKitCommand implements TabExecutor
 	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args)
 	{
 		if (args.length == 1)
-			return retMatches(args[0], "list", "create", "remove", "setDisplayname", "setItems", "info", "get", "bindMaps");
+			return retMatches(args[0], "list", "create", "remove", "setDisplayname", "setItems", "info", "get", "bindMaps", "setIcon");
 
-		if (args.length == 2 && argEquals(args[0], "remove", "setDisplayname", "setItems", "info", "get", "bindMaps"))
+		if (args.length == 2 && argEquals(args[0], "remove", "setDisplayname", "setItems", "info", "get", "bindMaps", "setIcon"))
 			return retMatches(args[1], duels.getKitManager().getKitNames());
 
 		if (args.length > 2 && args[0].equalsIgnoreCase("bindMaps"))

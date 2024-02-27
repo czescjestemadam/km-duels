@@ -3,6 +3,7 @@ package czescjestemadas.kmduels.kits;
 import czescjestemadas.kmduels.Duels;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
@@ -41,6 +42,7 @@ public final class KitManager
 					cfgKit.getList("items", new ArrayList<>()).toArray(ItemStack[]::new)
 			);
 			kit.setBindedMaps(cfgKit.getStringList("binded-maps"));
+			kit.setIcon(Material.getMaterial(cfgKit.getString("icon")));
 
 			kits.add(kit);
 		}
@@ -58,6 +60,7 @@ public final class KitManager
 			cfgKit.set("displayname", MiniMessage.miniMessage().serialize(kit.getDisplayname()));
 			cfgKit.set("items", kit.getItems());
 			cfgKit.set("binded-maps", kit.getBindedMaps() == null ? List.of() : kit.getBindedMaps());
+			cfgKit.set("icon", kit.getIcon().toString());
 		}
 
 		try
