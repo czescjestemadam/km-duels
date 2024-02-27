@@ -31,4 +31,9 @@ public class DuelPlayer
 	{
 		return elos;
 	}
+
+	public int getPing()
+	{
+		return getPlayer().getPlayer().spigot().getPing();
+	}
 }
