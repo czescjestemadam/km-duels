@@ -53,7 +53,7 @@ turbo bombing duels beta plugin
 - kits
     - [ ] per player kit items override
     - [ ] better kit edition
-    - [ ] icon
+    - [x] icon
 - listeners
     - [ ] revoke elo on cheat ban
     - [ ] undo revoke on cheat unban
