@@ -33,11 +33,7 @@ public class JoinQuitListener implements Listener
 	private void onQuit(PlayerQuitEvent e)
 	{
 		final PlayerManager playerManager = duels.getPlayerManager();
-
 		final DuelPlayer player = playerManager.getPlayer(e.getPlayer().getUniqueId());
-		if (player == null)
-			return;
-
 		playerManager.savePlayer(player);
 		playerManager.unloadPlayer(player);
 

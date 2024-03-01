@@ -3,6 +3,7 @@ package czescjestemadas.kmduels.players;
 import czescjestemadas.kmduels.Duels;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,7 +46,7 @@ public final class PlayerManager
 		return Collections.unmodifiableList(players);
 	}
 
-	public DuelPlayer getPlayer(UUID id)
+	public @NotNull DuelPlayer getPlayer(UUID id)
 	{
 		for (DuelPlayer player : players)
 		{
@@ -53,7 +54,7 @@ public final class PlayerManager
 				return player;
 		}
 
-		return null;
+		throw new IllegalStateException("no DuelPlayer found with uuid " + id);
 	}
 
 	public void loadPlayer(DuelPlayer player)
