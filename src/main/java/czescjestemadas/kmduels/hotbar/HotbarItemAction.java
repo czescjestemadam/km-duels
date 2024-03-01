@@ -11,7 +11,7 @@ public enum HotbarItemAction
 	OPEN_RANKED_FIGHT_SELECTOR((duels, player) -> duels.getGuiManager().open(player, new RankedFightSelector(duels))),
 	OPEN_KIT_EDITOR((duels, player) -> {player.getPlayer().sendMessage("editor");}),
 	OPEN_SPECTATOR_SELECTOR((duels, player) -> {player.getPlayer().sendMessage("spectator");}),
-	LEAVE_QUEUE((duels, player) -> {player.getPlayer().sendMessage("leave q");}),
+	LEAVE_QUEUE((duels, player) -> duels.getQueueManager().leaveQueue(player, true)),
 	CREATE_PARTY((duels, player) -> {player.getPlayer().sendMessage("create party");}),
 	LEAVE_PARTY((duels, player) -> {player.getPlayer().sendMessage("leave party");}),
 	OPEN_PARTY_FIGHT_SELECTOR((duels, player) -> {player.getPlayer().sendMessage("party fight");}),

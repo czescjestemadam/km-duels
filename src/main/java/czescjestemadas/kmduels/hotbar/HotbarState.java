@@ -18,7 +18,7 @@ public enum HotbarState
 			new HotbarItem(8, new ItemStack(Material.NOTE_BLOCK), HotbarItemAction.CREATE_PARTY)
 	)),
 	PARTY(List.of()),
-	QUEUED(List.of()),
+	QUEUED(List.of(new HotbarItem(8, new ItemStack(Material.BARRIER), HotbarItemAction.LEAVE_QUEUE))),
 	FIGHT(List.of());
 
 	private final List<HotbarItem> items;

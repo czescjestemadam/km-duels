@@ -1,10 +1,10 @@
 package czescjestemadas.kmduels.config;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import static net.kyori.adventure.text.minimessage.MiniMessage.miniMessage;
@@ -28,7 +28,8 @@ public class QueueConfig implements Config
 
 		final ConfigurationSection cfgEloMatching = cfg.getConfigurationSection("elo-matching");
 		for (String key : cfgEloMatching.getKeys(false))
-			eloMatchings.add(EloMatching.load(cfg.getConfigurationSection(key)));
+			eloMatchings.add(EloMatching.load(cfgEloMatching.getConfigurationSection(key)));
+		eloMatchings.sort(Comparator.comparingInt(EloMatching::getMinTime));
 
 		final ConfigurationSection msg = cfg.getConfigurationSection("messages");
 		msgEnter = miniMessage().deserialize(msg.getString("enter"));
@@ -46,6 +47,11 @@ public class QueueConfig implements Config
 		{
 			this.minTime = minTime;
 			this.range = range;
+		}
+
+		public int getMinTime()
+		{
+			return minTime;
 		}
 
 		public static EloMatching load(ConfigurationSection cfg)
