@@ -1,10 +1,11 @@
 package czescjestemadas.kmduels.commands;
 
 import czescjestemadas.kmduels.Duels;
+import czescjestemadas.kmduels.config.KitsConfig;
 import czescjestemadas.kmduels.kits.DuelKit;
-import czescjestemadas.kmduels.maps.DuelMap;
+import czescjestemadas.kmduels.utils.ChatUtils;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.JoinConfiguration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -16,20 +17,19 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
-import static czescjestemadas.kmduels.utils.StrUtils.retMatches;
 import static czescjestemadas.kmduels.utils.StrUtils.argEquals;
+import static czescjestemadas.kmduels.utils.StrUtils.retMatches;
 
 public class DKitCommand implements TabExecutor
 {
 	private final Duels duels;
-	private final Component help = Component.text("/dkit <create | remove | setDisplayname | setItems | info | get> <name>").color(NamedTextColor.RED);
+	private final KitsConfig cfg;
 
 	public DKitCommand(Duels duels)
 	{
 		this.duels = duels;
+		this.cfg = duels.getConfigManager().getKitsConfig();
 	}
 
 	@Override
@@ -37,13 +37,19 @@ public class DKitCommand implements TabExecutor
 	{
 		if (args.length == 1 && args[0].equalsIgnoreCase("list"))
 		{
-			sender.sendMessage("kits: " + duels.getKitManager().getKitNames());
+			sender.sendMessage(cfg.msgListPrefix.append(
+					Component.join(JoinConfiguration.commas(true),
+							duels.getKitManager().getKitNames().stream()
+									.map(duels.getKitManager()::getKit)
+									.map(kit -> ChatUtils.mmKit(cfg.msgListItem, kit))
+									.toList())
+			));
 			return true;
 		}
 
 		if (args.length < 2)
 		{
-			sender.sendMessage(help);
+			sender.sendMessage(cfg.msgHelp);
 			return true;
 		}
 
@@ -54,46 +60,50 @@ public class DKitCommand implements TabExecutor
 		{
 			final ItemStack[] items = sender instanceof Player player ? player.getInventory().getContents() : new ItemStack[]{};
 			if (duels.getKitManager().createKit(name, items))
-				sender.sendMessage("created kit " + name);
+				sender.sendMessage(ChatUtils.mmKit(cfg.msgCreate, duels.getKitManager().getKit(name)));
 			else
-				sender.sendMessage("kit " + name + " already exists");
+				sender.sendMessage(cfg.msgAlreadyExists);
 
 			return true;
 		}
 		else if (action.equalsIgnoreCase("remove") && sender.hasPermission("km-duels.kit.remove"))
 		{
-			if (duels.getKitManager().removeKit(name))
-				sender.sendMessage("removed kit " + name);
+			final DuelKit kit = duels.getKitManager().getKit(name);
+			if (kit != null)
+			{
+				duels.getKitManager().removeKit(name);
+				sender.sendMessage(ChatUtils.mmKit(cfg.msgRemove, kit));
+			}
 			else
-				sender.sendMessage("kit " + name + " not found");
+				sender.sendMessage(cfg.msgNotFound);
 
 			return true;
 		}
-		else if (action.equalsIgnoreCase("setDisplayname") && sender.hasPermission("km-duels.kit.edit") && args.length > 2)
+		else if (action.equalsIgnoreCase("displayname") && sender.hasPermission("km-duels.kit.edit") && args.length > 2)
 		{
 			final DuelKit kit = duels.getKitManager().getKit(name);
 			if (kit == null)
 			{
-				sender.sendMessage("kit " + name + " not found");
+				sender.sendMessage(cfg.msgNotFound);
 				return true;
 			}
 
 			final String str = String.join(" ", Arrays.copyOfRange(args, 2, args.length));
 			kit.setDisplayname(MiniMessage.miniMessage().deserialize(str));
-			sender.sendMessage(Component.text("set " + name + " displayname to: ").append(kit.getDisplayname()));
+			sender.sendMessage(ChatUtils.mmKit(cfg.msgSetDisplayname, kit));
 			return true;
 		}
-		else if (action.equalsIgnoreCase("setItems") && sender.hasPermission("km-duels.kit.edit") && sender instanceof Player player)
+		else if (action.equalsIgnoreCase("items") && sender.hasPermission("km-duels.kit.edit") && sender instanceof Player player)
 		{
 			final DuelKit kit = duels.getKitManager().getKit(name);
 			if (kit == null)
 			{
-				sender.sendMessage("kit " + name + " not found");
+				sender.sendMessage(cfg.msgNotFound);
 				return true;
 			}
 
 			kit.setItems(player.getInventory().getContents());
-			sender.sendMessage("items set for " + name);
+			sender.sendMessage(ChatUtils.mmKit(cfg.msgSetItems, kit));
 			return true;
 		}
 		else if (action.equalsIgnoreCase("info"))
@@ -101,15 +111,11 @@ public class DKitCommand implements TabExecutor
 			final DuelKit kit = duels.getKitManager().getKit(name);
 			if (kit == null)
 			{
-				sender.sendMessage("kit " + name + " not found");
+				sender.sendMessage(cfg.msgNotFound);
 				return true;
 			}
 
-			sender.sendMessage("name: " + kit.getName());
-			sender.sendMessage(Component.text("displayname: ").append(kit.getDisplayname()));
-			sender.sendMessage("items: " + Arrays.stream(kit.getItems()).filter(Objects::nonNull).toList());
-			sender.sendMessage("binded maps: " + kit.getBindedMaps());
-			sender.sendMessage("icon: " + kit.getIcon());
+			sender.sendMessage(ChatUtils.mmKit(cfg.msgInfo, kit));
 			return true;
 		}
 		else if (action.equalsIgnoreCase("get") && sender instanceof Player player)
@@ -117,12 +123,12 @@ public class DKitCommand implements TabExecutor
 			final DuelKit kit = duels.getKitManager().getKit(name);
 			if (kit == null)
 			{
-				sender.sendMessage("kit " + name + " not found");
+				sender.sendMessage(cfg.msgNotFound);
 				return true;
 			}
 
 			player.getInventory().setContents(kit.getItems());
-			sender.sendMessage("got items for kit " + name);
+			sender.sendMessage(ChatUtils.mmKit(cfg.msgGet, kit));
 			return true;
 		}
 		else if (action.equalsIgnoreCase("bindMaps") && sender.hasPermission("km-duels.kit.edit"))
@@ -130,7 +136,7 @@ public class DKitCommand implements TabExecutor
 			final DuelKit kit = duels.getKitManager().getKit(name);
 			if (kit == null)
 			{
-				sender.sendMessage("kit " + name + " not found");
+				sender.sendMessage(cfg.msgNotFound);
 				return true;
 			}
 
@@ -138,30 +144,30 @@ public class DKitCommand implements TabExecutor
 			if (maps.length == 0)
 			{
 				kit.setBindedMaps(List.of());
-				sender.sendMessage("unbinded maps from " + name);
+				sender.sendMessage(ChatUtils.mmKit(cfg.msgUnbindMaps, kit));
 			}
 			else
 			{
 				kit.setBindedMaps(Arrays.asList(maps));
-				sender.sendMessage("binded " + kit.getBindedMaps() + " to " + name);
+				sender.sendMessage(ChatUtils.mmKit(cfg.msgBindMaps, kit));
 			}
 			return true;
 		}
-		else if (action.equalsIgnoreCase("setIcon") && sender.hasPermission("km-duels.kit.edit") && sender instanceof Player player)
+		else if (action.equalsIgnoreCase("icon") && sender.hasPermission("km-duels.kit.edit") && sender instanceof Player player)
 		{
 			final DuelKit kit = duels.getKitManager().getKit(name);
 			if (kit == null)
 			{
-				sender.sendMessage("kit " + name + " not found");
+				sender.sendMessage(cfg.msgNotFound);
 				return true;
 			}
 
 			kit.setIcon(player.getInventory().getItemInMainHand().getType());
-			sender.sendMessage("set icon to " + kit.getIcon());
+			sender.sendMessage(ChatUtils.mmKit(cfg.msgSetIcon, kit));
 			return true;
 		}
 
-		sender.sendMessage(help);
+		sender.sendMessage(cfg.msgHelp);
 		return true;
 	}
 
@@ -169,9 +175,9 @@ public class DKitCommand implements TabExecutor
 	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args)
 	{
 		if (args.length == 1)
-			return retMatches(args[0], "list", "create", "remove", "setDisplayname", "setItems", "info", "get", "bindMaps", "setIcon");
+			return retMatches(args[0], "list", "create", "remove", "displayname", "items", "info", "get", "bindMaps", "icon");
 
-		if (args.length == 2 && argEquals(args[0], "remove", "setDisplayname", "setItems", "info", "get", "bindMaps", "setIcon"))
+		if (args.length == 2 && argEquals(args[0], "remove", "displayname", "items", "info", "get", "bindMaps", "icon"))
 			return retMatches(args[1], duels.getKitManager().getKitNames());
 
 		if (args.length > 2 && args[0].equalsIgnoreCase("bindMaps"))

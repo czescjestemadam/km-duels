@@ -4,6 +4,7 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,8 +13,8 @@ public class DuelKit
 	private final String name;
 	private Component displayname;
 	private ItemStack[] items;
-	private List<String> bindedMaps;
-	private Material icon;
+	private List<String> bindedMaps = new ArrayList<>();
+	private Material icon = Material.DIAMOND_SWORD;
 
 	public DuelKit(String name, Component displayname, ItemStack[] items)
 	{

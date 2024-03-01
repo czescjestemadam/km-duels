@@ -152,7 +152,22 @@ gui:
 
 
 kits:
-  jajko: 1
+  messages:
+    help: "<red>/dkit <create | remove | displayname | items | icon | info | get> <name>"
+    list:
+      prefix: "<yellow>Załadowane kity:<reset> "
+      item: "<kit_displayname> <dark_gray>(<gray><kit_name><dark_gray>)<reset>"
+    create: "<green>Stworzono kit <kit_name>"
+    remove: "<red>Usunięto kit <kit_displayname> <dark_gray>(<gray><kit_name><dark_gray>)"
+    set-displayname: "<yellow>Ustawiono nazwe kitu <kit_name> na <kit_displayname>"
+    set-items: "<yellow>Ustawiono przedmioty dla kitu <kit_displayname> <dark_gray>(<gray><kit_name><dark_gray>)"
+    info: "<newline><white>Kit <kit_displayname> <dark_gray>(<gray><kit_name><dark_gray>)<newline><gray>Przedmioty: <white><kit_items><newline><gray>Przypisane mapy: <white><kit_binded_maps><newline><gray>Ikona: <white><kit_icon>"
+    get: "<yellow>Ustawiono ekwipunek dla <kit_displayname> <dark_gray>(<gray><kit_name><dark_gray>)"
+    bind-maps: "<yellow>Przypisano mapy <kit_binded_maps> dla <kit_displayname> <dark_gray>(<gray><kit_name><dark_gray>)"
+    unbind-maps: "<yellow>Usunięto przypisane mapy z <kit_displayname> <dark_gray>(<gray><kit_name><dark_gray>)"
+    set-icon: "<yellow>Ustawiono ikone na <kit_icon> dla <kit_displayname> <dark_gray>(<gray><kit_name><dark_gray>)"
+    already-exists: "<red>Już istnieje zestaw o takiej nazwie"
+    not-found: "<red>Nie znaleziono zestawu"
 
 
 maps:
