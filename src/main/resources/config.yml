@@ -14,8 +14,8 @@ fights:
 
   remove-missed-arrows: true
 
-  prevent-item-dropping: true
-
+  # cancel / remove
+  prevent-item-dropping: remove
 
   # blocked commands during a fight
   blocked-commands:
@@ -33,6 +33,7 @@ fights:
     on-end: ""
     on-win: ""
     on-lose: ""
+
 
 gui:
   hotbar-slots:
@@ -52,15 +53,25 @@ gui:
 kits:
   jajko: 1
 
+
 maps:
   rollback: true
+  rollback-remove-endcrystals: true
+  prevent-escaping: true
+
 
 party:
   player-limit: 10
   chat-prefix: "@"
 
+  messages:
+    created: "<green>✔ Stworzyłeś party!"
+    removed: "<red>✖ Party zostało usunięte!"
+
+
 players:
   default-elo: 1000
+
 
 queue:
   # ticks
@@ -90,6 +101,7 @@ queue:
     enter: "<green>Oczekiwanie na gracza w kolejce..."
     leave: "<red>Opuściłeś kolejke!"
     searching: "<yellow>Szukanie graczy w zakresie <range> ELO!"
+
 
 messages:
   jajo: ""
