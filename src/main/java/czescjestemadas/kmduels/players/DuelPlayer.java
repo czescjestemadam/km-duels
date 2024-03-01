@@ -3,9 +3,11 @@ package czescjestemadas.kmduels.players;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 public class DuelPlayer
@@ -21,9 +23,7 @@ public class DuelPlayer
 
 	public void executeCommand(String cmd)
 	{
-		final Player player = getPlayer().getPlayer();
-		if (player != null)
-			player.performCommand(cmd);
+		getPlayer().performCommand(cmd);
 	}
 
 	public UUID getOwner()
@@ -31,9 +31,14 @@ public class DuelPlayer
 		return owner;
 	}
 
-	public OfflinePlayer getPlayer()
+	public OfflinePlayer getOfflinePlayer()
 	{
 		return Bukkit.getOfflinePlayer(owner);
+	}
+
+	public @NotNull Player getPlayer()
+	{
+		return Objects.requireNonNull(Bukkit.getPlayer(owner));
 	}
 
 	public PlayerStats getStats()
@@ -48,6 +53,6 @@ public class DuelPlayer
 
 	public int getPing()
 	{
-		return getPlayer().getPlayer().spigot().getPing();
+		return getPlayer().spigot().getPing();
 	}
 }
