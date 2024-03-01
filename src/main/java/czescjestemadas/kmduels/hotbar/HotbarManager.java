@@ -31,6 +31,7 @@ public class HotbarManager
 	public void setState(DuelPlayer player, HotbarState state)
 	{
 		states.put(player.getOwner(), state);
+		state.setItems(player.getPlayer().getInventory());
 	}
 
 	public void unsetState(DuelPlayer player)
