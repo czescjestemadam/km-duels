@@ -1,6 +1,7 @@
 package czescjestemadas.kmduels.hotbar;
 
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
@@ -16,6 +17,14 @@ public class HotbarItem
 		this.slot = slot;
 		this.item = item;
 		this.action = action;
+	}
+
+	public HotbarItem(int slot, ItemStack item, @NotNull String command)
+	{
+		this.slot = slot;
+		this.item = item;
+		this.action = HotbarItemAction.COMMAND;
+		this.command = Optional.of(command);
 	}
 
 	public int getSlot()
