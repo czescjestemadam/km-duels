@@ -30,7 +30,7 @@ public final class PlayerManager
 	{
 		for (Player player : duels.getServer().getOnlinePlayers())
 		{
-			final DuelPlayer duelPlayer = new DuelPlayer(player.getUniqueId());
+			final DuelPlayer duelPlayer = createPlayer(player.getUniqueId());
 			loadPlayer(duelPlayer);
 		}
 	}
@@ -66,6 +66,13 @@ public final class PlayerManager
 		final YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
 		player.getStats().load(cfg.getConfigurationSection("stats"));
+	}
+
+	public DuelPlayer createPlayer(UUID id)
+	{
+		final DuelPlayer player = new DuelPlayer(id);
+		players.add(player);
+		return player;
 	}
 
 	public void savePlayer(DuelPlayer player)

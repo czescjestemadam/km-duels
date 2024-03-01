@@ -23,8 +23,9 @@ public class JoinQuitListener implements Listener
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	private void onJoin(PlayerJoinEvent e)
 	{
-		final DuelPlayer player = new DuelPlayer(e.getPlayer().getUniqueId());
-		duels.getPlayerManager().loadPlayer(player);
+		final PlayerManager playerManager = duels.getPlayerManager();
+		final DuelPlayer player = playerManager.createPlayer(e.getPlayer().getUniqueId());
+		playerManager.loadPlayer(player);
 
 		duels.getHotbarManager().setState(player, HotbarState.LOBBY);
 	}
