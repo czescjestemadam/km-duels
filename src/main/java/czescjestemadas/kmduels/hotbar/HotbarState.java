@@ -11,7 +11,7 @@ public enum HotbarState
 	LOBBY(List.of()),
 	PARTY(List.of()),
 	QUEUED(List.of()),
-	FIGHT(null);
+	FIGHT(List.of());
 
 	private final List<HotbarItem> items;
 
@@ -44,6 +44,6 @@ public enum HotbarState
 
 	public boolean handleItems()
 	{
-		return items != null;
+		return this != FIGHT;
 	}
 }
