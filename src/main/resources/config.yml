@@ -35,6 +35,88 @@ fights:
     on-lose: ""
 
 
+# hotbar item actions:
+#   OPEN_RANKED_FIGHT_SELECTOR
+#   OPEN_KIT_EDITOR
+#   OPEN_SPECTATOR_SELECTOR
+#   LEAVE_QUEUE
+#   CREATE_PARTY
+#   LEAVE_PARTY
+#   OPEN_PARTY_FIGHT_SELECTOR
+#   OPEN_PARTY_SETTING_SELECTOR
+#   SHOW_PARTY_INFO
+#   COMMAND
+hotbar:
+  prevent-moving-hotbar-items: true
+
+  lobby:
+    queue-selector-item:
+      slot: 1
+      item:
+        material: DIAMOND_SWORD
+        name: "<#0BD0FB>Kolejka pojedynków"
+      action: OPEN_RANKED_FIGHT_SELECTOR
+    kit-editor-item:
+      slot: 2
+      item:
+        material: BOOK
+        name: "<#0BD0FB>Edycja zestawów"
+      action: OPEN_KIT_EDITOR
+    player-gui-item:
+      slot: 5
+      item:
+        material: END_CRYSTAL
+        name: "<#F477E7>Panel gracza"
+      action: COMMAND
+      command: "/#open player panel command"
+    spectate-item:
+      slot: 8
+      item:
+        material: ENDER_PEARL
+        name: "<#0BD0FB>Obserwuj pojedynki"
+      action: OPEN_SPECTATOR_SELECTOR
+    party-create-item:
+      slot: 9
+      item:
+        material: NOTE_BLOCK
+        name: "<#0BD0FB>Stwórz party"
+      action: CREATE_PARTY
+
+  party:
+    fight-selector-item:
+      slot: 1
+      item:
+        material: DIAMOND_SWORD
+        name: "<#0BD0FB>Walka party"
+      action: OPEN_PARTY_FIGHT_SELECTOR
+    settings-selector-item:
+      slot: 2
+      item:
+        material: TRIPWIRE_HOOK
+        name: "<#0BD0FB>Ustawienia party"
+      action: OPEN_PARTY_SETTING_SELECTOR
+    info-item:
+      slot: 8
+      item:
+        material: PLAYER_HEAD
+        name: "<#0BD0FB>Informacje o party"
+      action: SHOW_PARTY_INFO
+    leave-item:
+      slot: 9
+      item:
+        material: BARRIER
+        name: "<#0BD0FB>Opuść party"
+      action: LEAVE_PARTY
+
+  queued:
+    quit-item:
+      slot: 9
+      item:
+        material: BARRIER
+        name: "<#0BD0FB>Usuń party"
+      action: LEAVE_QUEUE
+
+
 gui:
   selectors:
     ranked-fight:
