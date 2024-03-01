@@ -44,10 +44,9 @@ turbo bombing duels beta plugin
     - [ ] on death effects
     - [ ] countdown
 - gui
-    - [ ] simple single window gui helper
+    - [x] simple single window gui helper
     - [ ] multi window gui helper
-    - [ ] fight mode selector
-    - [ ] fight type selector
+    - [x] fight kit selector
     - [ ] kit preview in selector
     - [ ] fight map selector
     - [ ] per player kit editor
@@ -68,7 +67,7 @@ turbo bombing duels beta plugin
     - [ ] command
     - [ ] player divider
 - players
-    - [ ] stats
+    - [x] stats
 - queue
     - [ ] elo based queue
     - [ ] ping limit
