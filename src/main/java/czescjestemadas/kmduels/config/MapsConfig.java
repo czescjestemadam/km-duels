@@ -22,6 +22,7 @@ public class MapsConfig implements Config
 	public String msgInfo;
 	public String msgAddSpawnPos;
 	public String msgClearSpawnPos;
+	public String msgSetIcon;
 	public Component msgAlreadyExists;
 	public Component msgNotFound;
 
@@ -44,6 +45,7 @@ public class MapsConfig implements Config
 		msgInfo = msg.getString("info");
 		msgAddSpawnPos = msg.getString("add-spawn-pos");
 		msgClearSpawnPos = msg.getString("clear-spawn-pos");
+		msgSetIcon = msg.getString("set-icon");
 		msgAlreadyExists = miniMessage().deserialize(msg.getString("already-exists"));
 		msgNotFound = miniMessage().deserialize(msg.getString("not-found"));
 	}

@@ -4,9 +4,9 @@ import czescjestemadas.kmduels.Duels;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.util.Vector;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,6 +41,7 @@ public final class MapManager
 			map.setPointA(cfgMap.getVector("point-a"));
 			map.setPointB(cfgMap.getVector("point-b"));
 			map.setSpawnPositions((List<Location>)cfgMap.getList("spawn-positions"));
+			map.setIcon(Material.getMaterial(cfg.getString("icon")));
 
 			maps.add(map);
 		}
@@ -56,10 +57,11 @@ public final class MapManager
 		{
 			final ConfigurationSection cfgMap = cfg.createSection(map.getName());
 			cfgMap.set("displayname", MiniMessage.miniMessage().serialize(map.getDisplayname()));
-			cfgMap.set("world", map.getWorld().getName());
+			cfgMap.set("world", map.getWorldName());
 			cfgMap.set("point-a", map.getPointA());
 			cfgMap.set("point-b", map.getPointB());
 			cfgMap.set("spawn-positions", map.getSpawnPositions());
+			cfgMap.set("icon", map.getIcon().toString());
 		}
 
 		try

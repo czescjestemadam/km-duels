@@ -2,6 +2,7 @@ package czescjestemadas.kmduels.maps;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
@@ -17,7 +18,8 @@ public class DuelMap
 	private WeakReference<World> world;
 	private Vector pointA;
 	private Vector pointB;
-	private List<Location> spawnPositions;
+	private List<Location> spawnPositions = new ArrayList<>();
+	private Material icon = Material.GRASS_BLOCK;
 
 	public DuelMap(String name, Component displayname)
 	{
@@ -43,6 +45,11 @@ public class DuelMap
 	public World getWorld()
 	{
 		return world == null ? null : world.get();
+	}
+
+	public String getWorldName()
+	{
+		return getWorld() == null ? "null" : getWorld().getName();
 	}
 
 	public void setWorld(@NotNull World world)
@@ -89,8 +96,6 @@ public class DuelMap
 
 	public List<Location> getSpawnPositions()
 	{
-		if (spawnPositions == null)
-			spawnPositions = new ArrayList<>();
 		return spawnPositions;
 	}
 
@@ -104,6 +109,16 @@ public class DuelMap
 		getSpawnPositions().add(location);
 	}
 
+	public Material getIcon()
+	{
+		return icon;
+	}
+
+	public void setIcon(Material icon)
+	{
+		this.icon = icon;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -114,6 +129,7 @@ public class DuelMap
 				", pointA=" + pointA +
 				", pointB=" + pointB +
 				", spawnPositions=" + spawnPositions +
+				", icon=" + icon +
 				'}';
 	}
 }

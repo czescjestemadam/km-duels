@@ -160,6 +160,19 @@ public class DMapCommand implements TabExecutor
 			sender.sendMessage(ChatUtils.mmMap(cfg.msgClearSpawnPos, map));
 			return true;
 		}
+		else if (action.equalsIgnoreCase("icon") && sender.hasPermission("km-duels.map.edit") && sender instanceof Player player)
+		{
+			final DuelMap map = duels.getMapManager().getMap(name);
+			if (map == null)
+			{
+				sender.sendMessage(cfg.msgNotFound);
+				return true;
+			}
+
+			map.setIcon(player.getInventory().getItemInMainHand().getType());
+			sender.sendMessage(ChatUtils.mmMap(cfg.msgSetIcon, map));
+			return true;
+		}
 
 		sender.sendMessage(cfg.msgHelp);
 		return true;
@@ -169,9 +182,9 @@ public class DMapCommand implements TabExecutor
 	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args)
 	{
 		if (args.length == 1)
-			return retMatches(args[0], "list", "create", "remove", "pointA", "pointB", "displayname", "info", "addSpawnPos", "clearSpawnPos");
+			return retMatches(args[0], "list", "create", "remove", "pointA", "pointB", "displayname", "info", "addSpawnPos", "clearSpawnPos", "icon");
 
-		if (args.length == 2 && argEquals(args[0], "remove", "point", "displayname", "info", "addSpawnPos", "clearSpawnPos"))
+		if (args.length == 2 && argEquals(args[0], "remove", "pointA", "pointB", "displayname", "info", "addSpawnPos", "clearSpawnPos", "icon"))
 			return retMatches(args[1], duels.getMapManager().getMapNames());
 
 		return List.of();

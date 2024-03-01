@@ -35,7 +35,7 @@ public class ChatUtils
 				Placeholder.unparsed("kit_name", kit.getName()),
 				Placeholder.component("kit_displayname", kit.getDisplayname()),
 				Placeholder.unparsed("kit_items", Arrays.toString(kit.getItems())),
-				Placeholder.unparsed("kit_binded_maps", kit.getBindedMaps().toString()),
+				Placeholder.unparsed("kit_binded_maps", kit.getBindedMaps() + ""),
 				Placeholder.unparsed("kit_icon", kit.getIcon().name())
 		);
 	}
@@ -46,11 +46,12 @@ public class ChatUtils
 		return TagResolver.resolver(
 				Placeholder.unparsed("map_name", map.getName()),
 				Placeholder.component("map_displayname", map.getDisplayname()),
-				Placeholder.unparsed("map_world", map.getWorld().getName()),
-				Placeholder.unparsed("map_point_a", map.getPointA().toString()),
-				Placeholder.unparsed("map_point_b", map.getPointB().toString()),
-				Placeholder.unparsed("map_spawn_positions", spawnPos.toString()),
-				Placeholder.unparsed("map_last_spawn_position", spawnPos.isEmpty() ? "null" : spawnPos.get(spawnPos.size() - 1).toString())
+				Placeholder.unparsed("map_world", map.getWorldName()),
+				Placeholder.unparsed("map_point_a", map.getPointA() + ""),
+				Placeholder.unparsed("map_point_b", map.getPointB() + ""),
+				Placeholder.unparsed("map_spawn_positions", spawnPos + ""),
+				Placeholder.unparsed("map_last_spawn_position", spawnPos.isEmpty() ? "null" : spawnPos.get(spawnPos.size() - 1).toString()),
+				Placeholder.unparsed("map_icon", map.getIcon().name())
 		);
 	}
 }

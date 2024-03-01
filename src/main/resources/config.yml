@@ -176,7 +176,7 @@ maps:
   prevent-escaping: true
 
   messages:
-    help: "<red>/dmap list<newline><red>/dmap <create | remove | displayname | info | pointA | pointB | addSpawnPos | clearSpawnPos> <name>"
+    help: "<red>/dmap list<newline><red>/dmap <create | remove | displayname | info | pointA | pointB | addSpawnPos | clearSpawnPos | icon> <name>"
     list:
       prefix: "<yellow>Załadowane mapy:<reset> "
       item: "<map_displayname> <dark_gray>(<gray><map_name><dark_gray>)<reset>"
@@ -185,9 +185,10 @@ maps:
     point-a: "<yellow>Ustawiono punkt granicy A na <map_point_a>"
     point-b: "<yellow>Ustawiono punkt granicy B na <map_point_b>"
     set-displayname: "<yellow>Ustawiono nazwe mapy <map_name> na <map_displayname>"
-    info: "<newline><white>Mapa <map_displayname> <dark_gray>(<gray><map_name><dark_gray>)<newline><gray>Świat: <white><map_world><newline><gray>Punkt A: <white><map_point_a><newline><gray>Punkt B: <white><map_point_b><newline><gray>Pozycje odrodzenia: <map_spawn_positions><newline>"
+    info: "<newline><white>Mapa <map_displayname> <dark_gray>(<gray><map_name><dark_gray>)<newline><gray>Świat: <white><map_world><newline><gray>Punkt A: <white><map_point_a><newline><gray>Punkt B: <white><map_point_b><newline><gray>Pozycje odrodzenia: <map_spawn_positions><newline><gray>Ikona: <white><map_icon><newline>"
     add-spawn-pos: "<yellow>Dodano pozycje odrodzenia <map_last_spawn_position> do <map_displayname> <dark_gray>(<gray><map_name><dark_gray>)"
     clear-spawn-pos: "<yellow>Wyczyszczono wszystkie pozycje odrodzenia w <map_displayname> <dark_gray>(<gray><map_name><dark_gray>)"
+    set-icon: "<yellow>Ustawiono ikone na <map_icon> dla <map_displayname> <dark_gray>(<gray><map_name><dark_gray>)"
     already-exists: "<red>Już istnieje mapa o takiej nazwie"
     not-found: "<red>Nie znaleziono mapy"
 
