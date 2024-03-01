@@ -53,6 +53,7 @@ public final class Duels extends JavaPlugin
 		listenerManager.registerListeners();
 
 		guiManager = new GuiManager(this);
+		guiManager.startSelectorUpdaterTask();
 
 		hotbarManager = new HotbarManager(this);
 		hotbarManager.setLoadedPlayers();

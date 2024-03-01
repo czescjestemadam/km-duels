@@ -118,10 +118,17 @@ hotbar:
 
 
 gui:
+  # ticks
+  selectors-update-interval: 20
+
   selectors:
     ranked-fight:
+      # size = x*9
       size: 27
       title: "<gray>↓ <black>Kolejka pojedynków"
+      items-lore:
+        - "<grey>Graczy w kolejce: <#0BD0FB><kit_players_queued>"
+        - "<grey>Graczy w pojedynku: <#0BD0FB><kit_players_fighting>"
 
     kit-editor:
       size: 27
@@ -130,6 +137,10 @@ gui:
     spectate:
       size: 54
       title: "<gray>↓ <black>Obserwuj walke"
+      items-lore:
+        - "<gray>Zestaw: <fight_kit_displayname>"
+        - "<gray>Mapa: <fight_map_displayname>"
+        - "<gray>Czas: <green><fight_duration_mm_ss>"
 
     party-fight:
       size: 54
