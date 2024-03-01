@@ -7,17 +7,17 @@ import java.util.function.BiConsumer;
 
 public enum HotbarItemAction
 {
-	OPEN_RANKED_FIGHT_SELECTOR((duels, player) -> {}),
-	OPEN_KIT_EDITOR((duels, player) -> {}),
-	OPEN_SPECTATOR_SELECTOR((duels, player) -> {}),
-	LEAVE_QUEUE((duels, player) -> {}),
-	CREATE_PARTY((duels, player) -> {}),
-	LEAVE_PARTY((duels, player) -> {}),
-	OPEN_PARTY_FIGHT_SELECTOR((duels, player) -> {}),
-	OPEN_PARTY_SETTING_SELECTOR((duels, player) -> {}),
-	SHOW_PARTY_INFO((duels, player) -> {}),
+	OPEN_RANKED_FIGHT_SELECTOR((duels, player) -> {player.getPlayer().sendMessage("ranked");}),
+	OPEN_KIT_EDITOR((duels, player) -> {player.getPlayer().sendMessage("editor");}),
+	OPEN_SPECTATOR_SELECTOR((duels, player) -> {player.getPlayer().sendMessage("spectator");}),
+	LEAVE_QUEUE((duels, player) -> {player.getPlayer().sendMessage("leave q");}),
+	CREATE_PARTY((duels, player) -> {player.getPlayer().sendMessage("create party");}),
+	LEAVE_PARTY((duels, player) -> {player.getPlayer().sendMessage("leave party");}),
+	OPEN_PARTY_FIGHT_SELECTOR((duels, player) -> {player.getPlayer().sendMessage("party fight");}),
+	OPEN_PARTY_SETTING_SELECTOR((duels, player) -> {player.getPlayer().sendMessage("party setting");}),
+	SHOW_PARTY_INFO((duels, player) -> {player.getPlayer().sendMessage("party info");}),
 
-	COMMAND((duels, player) -> {});
+	COMMAND((duels, player) -> {player.getPlayer().sendMessage("command");});
 
 	private final BiConsumer<Duels, DuelPlayer> func;
 
