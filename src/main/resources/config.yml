@@ -36,19 +36,27 @@ fights:
 
 
 gui:
-  hotbar-slots:
-    kit-selector: 0
-
-  selector:
-    kit:
+  selectors:
+    ranked-fight:
       size: 27
-      title: "<green>Wybierz kit"
-    map:
+      title: "<gray>↓ <black>Kolejka pojedynków"
+
+    kit-editor:
+      size: 27
+      title: "<gray>↓ <black>Edycja zestawów"
+
+    spectate:
       size: 54
-      title: "<geen>Wybierz mape"
-    fight:
+      title: "<gray>↓ <black>Obserwuj walke"
+
+    party-fight:
       size: 54
-      title: "<green>Wybierz walkę"
+      title: "<gray>↓ <black>Pojedynki party"
+
+    party-settings:
+      size: 27
+      title: "<gray>↓ <black>Ustawienia party"
+
 
 kits:
   jajko: 1
