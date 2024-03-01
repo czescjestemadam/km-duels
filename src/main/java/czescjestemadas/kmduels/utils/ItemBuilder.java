@@ -5,6 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 public class ItemBuilder
@@ -24,6 +25,12 @@ public class ItemBuilder
 	public ItemBuilder displayname(Component component)
 	{
 		item.editMeta(meta -> meta.displayName(component));
+		return this;
+	}
+
+	public ItemBuilder lore(List<? extends Component> lore)
+	{
+		item.editMeta(meta -> meta.lore(lore));
 		return this;
 	}
 
