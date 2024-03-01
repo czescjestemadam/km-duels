@@ -47,6 +47,8 @@ public enum HotbarState
 				item.getCommand().ifPresent(player::executeCommand);
 			else
 				action.execute(duels, player);
+
+			break;
 		}
 	}
 
