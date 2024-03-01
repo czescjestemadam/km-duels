@@ -4,6 +4,7 @@ import czescjestemadas.kmduels.Duels;
 import czescjestemadas.kmduels.hotbar.HotbarState;
 import czescjestemadas.kmduels.players.DuelPlayer;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -17,7 +18,7 @@ public class HotbarListener implements Listener
 		this.duels = duels;
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	private void onClick(InventoryClickEvent e)
 	{
 		final DuelPlayer player = duels.getPlayerManager().getPlayer(e.getWhoClicked().getUniqueId());
@@ -27,7 +28,7 @@ public class HotbarListener implements Listener
 			e.setCancelled(true);
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	private void onInteract(PlayerInteractEvent e)
 	{
 		if (!e.getAction().isRightClick())
