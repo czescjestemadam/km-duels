@@ -55,4 +55,11 @@ public class DuelPlayer
 	{
 		return getPlayer().spigot().getPing();
 	}
+
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		return obj instanceof DuelPlayer player ? player.owner.equals(owner) : super.equals(obj);
+	}
 }
