@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -37,6 +38,11 @@ public final class PlayerManager
 	{
 		for (DuelPlayer player : players)
 			savePlayer(player);
+	}
+
+	public List<DuelPlayer> getPlayers()
+	{
+		return Collections.unmodifiableList(players);
 	}
 
 	public DuelPlayer getPlayer(UUID id)

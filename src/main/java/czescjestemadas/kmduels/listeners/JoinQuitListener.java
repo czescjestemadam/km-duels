@@ -1,6 +1,7 @@
 package czescjestemadas.kmduels.listeners;
 
 import czescjestemadas.kmduels.Duels;
+import czescjestemadas.kmduels.hotbar.HotbarState;
 import czescjestemadas.kmduels.players.DuelPlayer;
 import czescjestemadas.kmduels.players.PlayerManager;
 import org.bukkit.event.EventHandler;
@@ -24,6 +25,8 @@ public class JoinQuitListener implements Listener
 	{
 		final DuelPlayer player = new DuelPlayer(e.getPlayer().getUniqueId());
 		duels.getPlayerManager().loadPlayer(player);
+
+		duels.getHotbarManager().setState(player, HotbarState.LOBBY);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -37,6 +40,8 @@ public class JoinQuitListener implements Listener
 
 		playerManager.savePlayer(player);
 		playerManager.unloadPlayer(player);
+
+		duels.getHotbarManager().unsetState(player);
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)

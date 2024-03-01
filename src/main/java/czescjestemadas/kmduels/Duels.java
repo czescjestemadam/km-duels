@@ -4,6 +4,7 @@ import czescjestemadas.kmduels.commands.CommandManager;
 import czescjestemadas.kmduels.config.ConfigManager;
 import czescjestemadas.kmduels.fights.FightManager;
 import czescjestemadas.kmduels.gui.GuiManager;
+import czescjestemadas.kmduels.hotbar.HotbarManager;
 import czescjestemadas.kmduels.kits.KitManager;
 import czescjestemadas.kmduels.listeners.ListenerManager;
 import czescjestemadas.kmduels.maps.MapManager;
@@ -23,6 +24,7 @@ public final class Duels extends JavaPlugin
 	private QueueManager queueManager;
 	private ListenerManager listenerManager;
 	private GuiManager guiManager;
+	private HotbarManager hotbarManager;
 	private CommandManager commandManager;
 
 	@Override
@@ -51,6 +53,9 @@ public final class Duels extends JavaPlugin
 		listenerManager.registerListeners();
 
 		guiManager = new GuiManager(this);
+
+		hotbarManager = new HotbarManager(this);
+		hotbarManager.setLoadedPlayers();
 
 		commandManager = new CommandManager(this);
 		commandManager.registerCommands();
@@ -109,6 +114,11 @@ public final class Duels extends JavaPlugin
 	public GuiManager getGuiManager()
 	{
 		return guiManager;
+	}
+
+	public HotbarManager getHotbarManager()
+	{
+		return hotbarManager;
 	}
 
 	public CommandManager getCommandManager()

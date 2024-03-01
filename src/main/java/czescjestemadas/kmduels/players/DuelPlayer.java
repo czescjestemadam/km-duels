@@ -2,6 +2,7 @@ package czescjestemadas.kmduels.players;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +17,13 @@ public class DuelPlayer
 	public DuelPlayer(UUID owner)
 	{
 		this.owner = owner;
+	}
+
+	public void executeCommand(String cmd)
+	{
+		final Player player = getPlayer().getPlayer();
+		if (player != null)
+			player.performCommand(cmd);
 	}
 
 	public UUID getOwner()
