@@ -15,6 +15,7 @@ public final class ListenerManager
 	public void registerListeners()
 	{
 		register(new JoinQuitListener(duels));
+		register(new HotbarListener(duels));
 	}
 
 	private void register(Listener listener)
