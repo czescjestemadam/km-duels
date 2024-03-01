@@ -1,8 +1,11 @@
 package czescjestemadas.kmduels.commands;
 
 import czescjestemadas.kmduels.Duels;
+import czescjestemadas.kmduels.config.MapsConfig;
 import czescjestemadas.kmduels.maps.DuelMap;
+import czescjestemadas.kmduels.utils.ChatUtils;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.JoinConfiguration;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.Command;
@@ -12,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static czescjestemadas.kmduels.utils.StrUtils.argEquals;
@@ -20,11 +24,12 @@ import static czescjestemadas.kmduels.utils.StrUtils.retMatches;
 public class DMapCommand implements TabExecutor
 {
 	private final Duels duels;
-	private final Component help = Component.text("/dmap <create | remove | pointA | pointB> <name>").color(NamedTextColor.RED);
+	private final MapsConfig cfg;
 
 	public DMapCommand(Duels duels)
 	{
 		this.duels = duels;
+		this.cfg = duels.getConfigManager().getMapsConfig();
 	}
 
 	@Override
@@ -32,13 +37,19 @@ public class DMapCommand implements TabExecutor
 	{
 		if (args.length == 1 && args[0].equalsIgnoreCase("list"))
 		{
-			sender.sendMessage("maps: " + duels.getMapManager().getMapNames());
+			sender.sendMessage(cfg.msgListPrefix.append(
+					Component.join(JoinConfiguration.commas(true),
+							duels.getMapManager().getMapNames().stream()
+									.map(duels.getMapManager()::getMap)
+									.map(kit -> ChatUtils.mmMap(cfg.msgListItem, kit))
+									.toList())
+			));
 			return true;
 		}
 
 		if (args.length < 2)
 		{
-			sender.sendMessage(help);
+			sender.sendMessage(cfg.msgHelp);
 			return true;
 		}
 
@@ -48,18 +59,22 @@ public class DMapCommand implements TabExecutor
 		if (action.equalsIgnoreCase("create") && sender.hasPermission("km-duels.map.create"))
 		{
 			if (duels.getMapManager().createMap(name))
-				sender.sendMessage("created map " + name);
+				sender.sendMessage(ChatUtils.mmMap(cfg.msgCreate, duels.getMapManager().getMap(name)));
 			else
-				sender.sendMessage("map " + name + " already exists");
+				sender.sendMessage(cfg.msgAlreadyExists);
 
 			return true;
 		}
 		else if (action.equalsIgnoreCase("remove") && sender.hasPermission("km-duels.map.remove"))
 		{
-			if (duels.getMapManager().removeMap(name))
-				sender.sendMessage("removed map " + name);
+			final DuelMap map = duels.getMapManager().getMap(name);
+			if (map != null)
+			{
+				duels.getMapManager().removeMap(name);
+				sender.sendMessage(ChatUtils.mmMap(cfg.msgRemove, map));
+			}
 			else
-				sender.sendMessage("map " + name + " not found");
+				sender.sendMessage(cfg.msgNotFound);
 
 			return true;
 		}
@@ -68,14 +83,14 @@ public class DMapCommand implements TabExecutor
 			final DuelMap map = duels.getMapManager().getMap(name);
 			if (map == null)
 			{
-				sender.sendMessage("map " + name + " not found");
+				sender.sendMessage(cfg.msgNotFound);
 				return true;
 			}
 
 			map.setWorld(player.getWorld());
 			map.setPointA(player.getLocation().toVector());
 			map.normalizePoints();
-			sender.sendMessage("set point A to " + map.getPointA());
+			sender.sendMessage(ChatUtils.mmMap(cfg.msgPointA, map));
 			return true;
 		}
 		else if (action.equalsIgnoreCase("pointB") && sender.hasPermission("km-duels.map.edit") && sender instanceof Player player)
@@ -83,27 +98,28 @@ public class DMapCommand implements TabExecutor
 			final DuelMap map = duels.getMapManager().getMap(name);
 			if (map == null)
 			{
-				sender.sendMessage("map " + name + " not found");
+				sender.sendMessage(cfg.msgNotFound);
 				return true;
 			}
 
 			map.setWorld(player.getWorld());
 			map.setPointB(player.getLocation().toVector());
 			map.normalizePoints();
-			sender.sendMessage("set point B to " + map.getPointB());
+			sender.sendMessage(ChatUtils.mmMap(cfg.msgPointB, map));
 			return true;
 		}
-		else if (action.equalsIgnoreCase("setDisplayname") && sender.hasPermission("km-duels.map.edit") && args.length > 2)
+		else if (action.equalsIgnoreCase("displayname") && sender.hasPermission("km-duels.map.edit") && args.length > 2)
 		{
 			final DuelMap map = duels.getMapManager().getMap(name);
 			if (map == null)
 			{
-				sender.sendMessage("map " + name + " not found");
+				sender.sendMessage(cfg.msgNotFound);
 				return true;
 			}
 
-			map.setDisplayname(MiniMessage.miniMessage().deserialize(args[2]));
-			sender.sendMessage(Component.text("set " + name + " displayname to: ").append(map.getDisplayname()));
+			final String str = String.join(" ", Arrays.copyOfRange(args, 2, args.length));
+			map.setDisplayname(MiniMessage.miniMessage().deserialize(str));
+			sender.sendMessage(ChatUtils.mmMap(cfg.msgSetDisplayname, map));
 			return true;
 		}
 		else if (action.equalsIgnoreCase("info"))
@@ -111,16 +127,11 @@ public class DMapCommand implements TabExecutor
 			final DuelMap map = duels.getMapManager().getMap(name);
 			if (map == null)
 			{
-				sender.sendMessage("map " + name + " not found");
+				sender.sendMessage(cfg.msgNotFound);
 				return true;
 			}
 
-			sender.sendMessage("name: " + map.getName());
-			sender.sendMessage(Component.text("displayname: ").append(map.getDisplayname()));
-			sender.sendMessage("world: " + map.getWorld());
-			sender.sendMessage("point A: " + map.getPointA());
-			sender.sendMessage("point B: " + map.getPointB());
-			sender.sendMessage("spawn positions: " + map.getSpawnPositions());
+			sender.sendMessage(ChatUtils.mmMap(cfg.msgInfo, map));
 			return true;
 		}
 		else if (action.equalsIgnoreCase("addSpawnPos") && sender.hasPermission("km-duels.map.edit") && sender instanceof Player player)
@@ -128,12 +139,12 @@ public class DMapCommand implements TabExecutor
 			final DuelMap map = duels.getMapManager().getMap(name);
 			if (map == null)
 			{
-				sender.sendMessage("map " + name + " not found");
+				sender.sendMessage(cfg.msgNotFound);
 				return true;
 			}
 
 			map.addSpawnPosition(player.getLocation().clone());
-			sender.sendMessage("added spawn position: " + player.getLocation());
+			sender.sendMessage(ChatUtils.mmMap(cfg.msgAddSpawnPos, map));
 			return true;
 		}
 		else if (action.equalsIgnoreCase("clearSpawnPos") && sender.hasPermission("km-duels.map.edit"))
@@ -141,16 +152,16 @@ public class DMapCommand implements TabExecutor
 			final DuelMap map = duels.getMapManager().getMap(name);
 			if (map == null)
 			{
-				sender.sendMessage("map " + name + " not found");
+				sender.sendMessage(cfg.msgNotFound);
 				return true;
 			}
 
 			map.getSpawnPositions().clear();
-			sender.sendMessage("cleared spawn positions of " + name);
+			sender.sendMessage(ChatUtils.mmMap(cfg.msgClearSpawnPos, map));
 			return true;
 		}
 
-		sender.sendMessage(help);
+		sender.sendMessage(cfg.msgHelp);
 		return true;
 	}
 
@@ -158,9 +169,9 @@ public class DMapCommand implements TabExecutor
 	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args)
 	{
 		if (args.length == 1)
-			return retMatches(args[0], "list", "create", "remove", "pointA", "pointB", "setDisplayname", "info", "addSpawnPos", "clearSpawnPos");
+			return retMatches(args[0], "list", "create", "remove", "pointA", "pointB", "displayname", "info", "addSpawnPos", "clearSpawnPos");
 
-		if (args.length == 2 && argEquals(args[0], "remove", "point", "setDisplayname", "info", "addSpawnPos", "clearSpawnPos"))
+		if (args.length == 2 && argEquals(args[0], "remove", "point", "displayname", "info", "addSpawnPos", "clearSpawnPos"))
 			return retMatches(args[1], duels.getMapManager().getMapNames());
 
 		return List.of();

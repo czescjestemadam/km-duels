@@ -9,15 +9,17 @@ turbo bombing duels beta plugin
 - `/duels` - shows plugin info
 - `/duels reload` - reloads config
 - `/duels save` - saves maps, kits, players
+### kits
 - `/dkit list` - shows kit names
 - `/dkit <create | remove | info | items> <name>` - manages kits
 - `/dkit displayname <minimessage>` - sets kit displayname
 - `/dkit get <name>` - sets inventory to kit contents
 - `/dkit bindMaps <name> [maps...]` - bind maps to kit (empty to unbind)
 - `/dkit icon <name>` - sets kit icon from item in hand
+### maps
 - `/dmap list` - shows map names
 - `/dmap <create | remove | info> <name>` - manages maps
-- `/dmap setDisplayname <minimessage>` - sets map displayname
+- `/dmap displayname <minimessage>` - sets map displayname
 - `/dmap <pointA | pointB> <name>` - sets map boundaries
 - `/dmap addSpawnPos <name>` - adds player spawn positions to map
 - `/dmap clearSpawnPos <name>` - clears player spawn positions from map

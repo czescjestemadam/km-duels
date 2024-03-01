@@ -9,6 +9,7 @@ public final class ConfigManager
 
 	private final GuiConfig guiConfig = new GuiConfig();
 	private final KitsConfig kitsConfig = new KitsConfig();
+	private final MapsConfig mapsConfig = new MapsConfig();
 	private final QueueConfig queueConfig = new QueueConfig();
 	private final MessagesConfig messagesConfig = new MessagesConfig();
 
@@ -25,6 +26,7 @@ public final class ConfigManager
 
 		guiConfig.load(cfg.getConfigurationSection("gui"));
 		kitsConfig.load(cfg.getConfigurationSection("kits"));
+		mapsConfig.load(cfg.getConfigurationSection("maps"));
 		queueConfig.load(cfg.getConfigurationSection("queue"));
 		messagesConfig.load(cfg.getConfigurationSection("messages"));
 	}
@@ -37,6 +39,11 @@ public final class ConfigManager
 	public KitsConfig getKitsConfig()
 	{
 		return kitsConfig;
+	}
+
+	public MapsConfig getMapsConfig()
+	{
+		return mapsConfig;
 	}
 
 	public QueueConfig getQueueConfig()
