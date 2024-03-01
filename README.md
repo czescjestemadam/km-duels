@@ -55,13 +55,13 @@ turbo bombing duels beta plugin
     - [ ] per player kit editor
 - kits
     - [ ] per player kit items override
-    - [ ] better kit edition
+    - [x] better kit edition
     - [x] icon
 - listeners
     - [ ] revoke elo on cheat ban
     - [ ] undo revoke on cheat unban
 - maps
-    - [ ] better map edition
+    - [x] better map edition
     - [ ] regen
     - [ ] prevent escaping
     - [ ] death/lose on escape
