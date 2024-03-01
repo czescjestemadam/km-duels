@@ -18,7 +18,7 @@ public class QueueManager
 
 	public void startMatchFinderTask()
 	{
-		final long interval = 10;
+		final long interval = duels.getConfigManager().getQueueConfig().matchFinderInterval;
 		duels.getServer().getScheduler().runTaskTimer(duels, this::matchFinder, interval, interval);
 	}
 

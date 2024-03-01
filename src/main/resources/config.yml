@@ -67,5 +67,29 @@ queue:
   match-finder-interval: 10
   max-ping: 200
 
+  elo-matching:
+    strict:
+      # seconds
+      min-time: 0
+      # +/- elo from queued player
+      range: 10
+    normal:
+      min-time: 10
+      range: 50
+    lose:
+      min-time: 20
+      range: 100
+    x-lose:
+      min-time: 35
+      range: 200
+    every:
+      min-time: 50
+      range: 99999
+
+  messages:
+    enter: "<green>Oczekiwanie na gracza w kolejce..."
+    leave: "<red>Opuściłeś kolejke!"
+    searching: "<yellow>Szukanie graczy w zakresie <range> ELO!"
+
 messages:
   jajo: ""
