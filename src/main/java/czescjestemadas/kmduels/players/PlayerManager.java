@@ -93,7 +93,7 @@ public final class PlayerManager
 
 	public void unloadPlayer(DuelPlayer player)
 	{
-		players.remove(player);
+		duels.getServer().getScheduler().runTaskLater(duels, () -> players.remove(player), 1);
 	}
 
 
