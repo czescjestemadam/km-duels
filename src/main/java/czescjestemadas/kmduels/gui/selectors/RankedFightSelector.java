@@ -37,7 +37,7 @@ public class RankedFightSelector extends SelectorGui
 					.lore(List.of(Component.text("lore1"), Component.text("lore2")))
 					.build();
 
-			final DuelGuiButton button = new DuelGuiButton(item, (d, p) -> duels.getQueueManager().queue(p, kit, true, true));
+			final DuelGuiButton button = new DuelGuiButton(item, (d, p) -> duels.getQueueManager().queue(p, kit, true));
 			elements.put(idx, button);
 			inventory.setItem(idx, button.getItem());
 			idx++;

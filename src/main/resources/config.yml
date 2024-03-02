@@ -211,6 +211,9 @@ players:
 queue:
   # ticks
   match-finder-interval: 10
+  # ticks
+  match-finder-message-interval: 40
+
   max-ping: 200
 
   elo-matching:

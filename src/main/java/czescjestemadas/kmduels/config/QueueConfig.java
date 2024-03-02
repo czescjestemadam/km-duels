@@ -12,6 +12,7 @@ import static net.kyori.adventure.text.minimessage.MiniMessage.miniMessage;
 public class QueueConfig implements Config
 {
 	public int matchFinderInterval;
+	public int matchFinderMessageInterval;
 	public int maxPing;
 
 	public final List<EloMatching> eloMatchings = new ArrayList<>();
@@ -24,6 +25,7 @@ public class QueueConfig implements Config
 	public void load(ConfigurationSection cfg)
 	{
 		matchFinderInterval = cfg.getInt("match-finder-interval");
+		matchFinderMessageInterval = cfg.getInt("match-finder-message-interval");
 		maxPing = cfg.getInt("max-ping");
 
 		final ConfigurationSection cfgEloMatching = cfg.getConfigurationSection("elo-matching");

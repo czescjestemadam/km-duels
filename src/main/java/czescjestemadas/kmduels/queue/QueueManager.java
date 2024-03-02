@@ -5,17 +5,21 @@ import czescjestemadas.kmduels.config.QueueConfig;
 import czescjestemadas.kmduels.hotbar.HotbarState;
 import czescjestemadas.kmduels.kits.DuelKit;
 import czescjestemadas.kmduels.players.DuelPlayer;
+import czescjestemadas.kmduels.utils.ChatUtils;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.UUID;
 
 public class QueueManager
 {
 	private final Duels duels;
 	private final QueueConfig cfg;
-	private final Queue<QueueEntry> queue = new LinkedList<>();
+	private final Map<DuelKit, DuelQueue> queues = new HashMap<>();
+	private final Map<UUID, Long> lastMatchFinderMsg = new HashMap<>();
 
 	public QueueManager(Duels duels)
 	{
@@ -25,27 +29,84 @@ public class QueueManager
 
 	public void startMatchFinderTask()
 	{
-		final long interval = duels.getConfigManager().getQueueConfig().matchFinderInterval;
-		duels.getServer().getScheduler().runTaskTimer(duels, this::matchFinder, interval, interval);
+		duels.getServer().getScheduler().runTaskTimer(duels, this::matchFinder, cfg.matchFinderInterval, cfg.matchFinderInterval);
 	}
 
-	public QueueEntry getEntry(DuelPlayer player)
+	public DuelQueue getQueue(DuelKit kit)
 	{
-		for (QueueEntry entry : queue)
+		return queues.get(kit);
+	}
+
+	public @NotNull DuelQueue createQueue(DuelKit kit)
+	{
+		final DuelQueue queue = new DuelQueue(kit);
+		queues.put(kit, queue);
+		return queue;
+	}
+
+	public @NotNull DuelQueue getOrCreateQueue(DuelKit kit)
+	{
+		DuelQueue queue = getQueue(kit);
+		if (queue == null)
+			queue = createQueue(kit);
+		return queue;
+	}
+
+	public DuelQueue getQueue(DuelPlayer player)
+	{
+		for (DuelQueue queue : queues.values())
 		{
-			if (entry.player.equals(player))
-				return entry;
+			for (DuelQueue.Entry entry : queue.getEntries())
+			{
+				if (entry.player().equals(player))
+					return queue;
+			}
 		}
 
 		return null;
 	}
 
-	public void queue(DuelPlayer player, DuelKit kit, boolean ranked, boolean message)
+	public DuelQueue.Entry getQueueEntry(DuelPlayer player)
 	{
-		if (getEntry(player) != null)
+		for (DuelQueue queue : queues.values())
+		{
+			for (DuelQueue.Entry entry : queue.getEntries())
+			{
+				if (entry.player().equals(player))
+					return entry;
+			}
+		}
+
+		return null;
+	}
+
+	public boolean removeQueueEntry(DuelPlayer player)
+	{
+		for (DuelQueue queue : queues.values())
+		{
+			for (Iterator<DuelQueue.Entry> iterator = queue.getEntries().iterator(); iterator.hasNext(); )
+			{
+				final DuelQueue.Entry entry = iterator.next();
+				if (entry.player().equals(player))
+				{
+					iterator.remove();
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	public void queue(DuelPlayer player, DuelKit kit, boolean message)
+	{
+		if (getQueueEntry(player) != null)
 			return;
 
-		queue.add(new QueueEntry(player, kit, ranked, System.currentTimeMillis()));
+		final DuelQueue queue = getOrCreateQueue(kit);
+		queue.getEntries().add(new DuelQueue.Entry(player, System.currentTimeMillis()));
+		player.getPlayer().closeInventory();
+
 		duels.getHotbarManager().setState(player, HotbarState.QUEUED);
 		if (message)
 			player.getPlayer().sendMessage(cfg.msgEnter);
@@ -53,7 +114,7 @@ public class QueueManager
 
 	public void leaveQueue(DuelPlayer player, boolean message)
 	{
-		if (!queue.removeIf(entry -> entry.player.equals(player)))
+		if (!removeQueueEntry(player))
 			return;
 
 		duels.getHotbarManager().setState(player, HotbarState.LOBBY);
@@ -64,29 +125,34 @@ public class QueueManager
 
 	private void matchFinder()
 	{
-		for (QueueEntry entry : queue)
+		for (DuelQueue queue : queues.values())
 		{
-			final long waitingTimeSeconds = entry.getWaitingTime() / 1000;
-
-
-
-			final List<QueueEntry> candidates = new ArrayList<>();
-
-			for (QueueEntry entry1 : queue)
+			for (DuelQueue.Entry e : queue.getEntries())
 			{
+				sendQueuedMessage(e);
+
 
 			}
-
-
 		}
 	}
 
-
-	public record QueueEntry(DuelPlayer player, DuelKit kit, boolean ranked, long queuedAt)
+	private void sendQueuedMessage(DuelQueue.Entry e)
 	{
-		public long getWaitingTime()
-		{
-			return System.currentTimeMillis() - queuedAt;
-		}
+		if (lastMatchFinderMsg.getOrDefault(e.player().getOwner(), 0L) + (cfg.matchFinderMessageInterval * 50L) > System.currentTimeMillis())
+			return;
+
+		e.player().getPlayer().sendMessage(ChatUtils.mm(cfg.msgSearching, Placeholder.unparsed("range", e.getWaitingTime() + "")));
+
+		lastMatchFinderMsg.put(e.player().getOwner(), System.currentTimeMillis());
+	}
+
+
+	@Override
+	public String toString()
+	{
+		return "QueueManager{" +
+				"queues=" + queues +
+				", lastMatchFinderMsg=" + lastMatchFinderMsg +
+				'}';
 	}
 }
