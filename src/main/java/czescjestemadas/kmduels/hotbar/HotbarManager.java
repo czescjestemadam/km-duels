@@ -38,4 +38,13 @@ public class HotbarManager
 	{
 		states.remove(player.getOwner());
 	}
+
+
+	@Override
+	public String toString()
+	{
+		return "HotbarManager{" +
+				"states=" + states +
+				'}';
+	}
 }

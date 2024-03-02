@@ -105,4 +105,14 @@ public final class KitManager
 
 		return kits.remove(kit);
 	}
+
+
+	@Override
+	public String toString()
+	{
+		return "KitManager{" +
+				"kitsFile=" + kitsFile +
+				", kits=" + kits +
+				'}';
+	}
 }

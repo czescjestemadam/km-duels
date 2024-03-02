@@ -1,6 +1,7 @@
 package czescjestemadas.kmduels.maps;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -131,8 +132,8 @@ public class DuelMap
 	{
 		return "DuelMap{" +
 				"name='" + name + '\'' +
-				", displayname=" + displayname +
-				", world=" + world +
+				", displayname='" + MiniMessage.miniMessage().serialize(displayname) + '\'' +
+				", world=" + getWorld() +
 				", pointA=" + pointA +
 				", pointB=" + pointB +
 				", spawnPositions=" + spawnPositions +

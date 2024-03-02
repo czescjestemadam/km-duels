@@ -101,4 +101,14 @@ public final class PlayerManager
 	{
 		return new File(playersDir, player.getOwner().toString() + ".yml");
 	}
+
+
+	@Override
+	public String toString()
+	{
+		return "PlayerManager{" +
+				"playersDir=" + playersDir +
+				", players=" + players +
+				'}';
+	}
 }

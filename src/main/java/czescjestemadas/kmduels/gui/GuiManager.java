@@ -63,4 +63,13 @@ public class GuiManager
 		for (DuelGui gui : openGuis.values())
 			gui.onUpdate();
 	}
+
+
+	@Override
+	public String toString()
+	{
+		return "GuiManager{" +
+				"openGuis=" + openGuis +
+				'}';
+	}
 }

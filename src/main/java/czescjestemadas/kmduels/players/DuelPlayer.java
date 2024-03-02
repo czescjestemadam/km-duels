@@ -62,4 +62,14 @@ public class DuelPlayer
 	{
 		return obj instanceof DuelPlayer player ? player.owner.equals(owner) : super.equals(obj);
 	}
+
+	@Override
+	public String toString()
+	{
+		return "DuelPlayer{" +
+				"owner=" + owner +
+				", stats=" + stats +
+				", elos=" + elos +
+				'}';
+	}
 }

@@ -106,4 +106,14 @@ public final class MapManager
 
 		return maps.remove(map);
 	}
+
+
+	@Override
+	public String toString()
+	{
+		return "MapManager{" +
+				"mapsFile=" + mapsFile +
+				", maps=" + maps +
+				'}';
+	}
 }

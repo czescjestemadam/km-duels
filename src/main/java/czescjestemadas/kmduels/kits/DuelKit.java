@@ -1,12 +1,14 @@
 package czescjestemadas.kmduels.kits;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class DuelKit
 {
@@ -80,8 +82,8 @@ public class DuelKit
 	{
 		return "DuelKit{" +
 				"name='" + name + '\'' +
-				", displayname=" + displayname +
-				", items=" + Arrays.toString(items) +
+				", displayname='" + MiniMessage.miniMessage().serialize(displayname) + '\'' +
+				", items=" + Arrays.stream(items).filter(Objects::nonNull).toList() +
 				", bindedMaps=" + bindedMaps +
 				", icon=" + icon +
 				'}';

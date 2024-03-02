@@ -49,4 +49,19 @@ public class PlayerStats
 		draws = 0;
 		playedGames = 0;
 	}
+
+
+	@Override
+	public String toString()
+	{
+		return "PlayerStats{" +
+				"kills=" + kills +
+				", deaths=" + deaths +
+				", assists=" + assists +
+				", wins=" + wins +
+				", loses=" + loses +
+				", draws=" + draws +
+				", playedGames=" + playedGames +
+				'}';
+	}
 }

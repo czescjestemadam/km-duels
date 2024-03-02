@@ -42,4 +42,13 @@ public final class FightManager
 	{
 		fights.add(fight);
 	}
+
+
+	@Override
+	public String toString()
+	{
+		return "FightManager{" +
+				"fights=" + fights +
+				'}';
+	}
 }
