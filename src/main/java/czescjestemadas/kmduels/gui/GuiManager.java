@@ -3,6 +3,7 @@ package czescjestemadas.kmduels.gui;
 import czescjestemadas.kmduels.Duels;
 import czescjestemadas.kmduels.gui.utils.DuelGui;
 import czescjestemadas.kmduels.players.DuelPlayer;
+import org.bukkit.event.inventory.ClickType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,13 +49,13 @@ public class GuiManager
 		openGuis.remove(player.getOwner());
 	}
 
-	public boolean tryClick(DuelPlayer player, int slot)
+	public boolean tryClick(DuelPlayer player, int slot, ClickType type)
 	{
 		final DuelGui gui = openGuis.get(player.getOwner());
 		if (gui == null)
 			return false;
 
-		gui.click(duels, player, slot);
+		gui.click(duels, player, slot, type);
 		return true;
 	}
 

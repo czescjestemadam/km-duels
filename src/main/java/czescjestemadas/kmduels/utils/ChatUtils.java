@@ -1,5 +1,6 @@
 package czescjestemadas.kmduels.utils;
 
+import czescjestemadas.kmduels.Duels;
 import czescjestemadas.kmduels.kits.DuelKit;
 import czescjestemadas.kmduels.maps.DuelMap;
 import net.kyori.adventure.text.Component;
@@ -37,6 +38,17 @@ public class ChatUtils
 				Placeholder.unparsed("kit_items", Arrays.toString(kit.getItems())),
 				Placeholder.unparsed("kit_binded_maps", kit.getBindedMaps() + ""),
 				Placeholder.unparsed("kit_icon", kit.getIcon() + "")
+		);
+	}
+
+	public static TagResolver kitSelectorResolver(Duels duels, DuelKit kit)
+	{
+		final String queued = duels.getQueueManager().getOrCreateQueue(kit).getEntries().size() + "";
+		final String fighting = duels.getFightManager().getFights().stream().filter(f -> f.getKit().equals(kit)).count() + "";
+
+		return TagResolver.resolver(
+				Placeholder.unparsed("kit_players_queued", queued),
+				Placeholder.unparsed("kit_players_fighting", fighting)
 		);
 	}
 

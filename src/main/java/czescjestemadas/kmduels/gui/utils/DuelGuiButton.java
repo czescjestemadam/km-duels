@@ -2,23 +2,36 @@ package czescjestemadas.kmduels.gui.utils;
 
 import czescjestemadas.kmduels.Duels;
 import czescjestemadas.kmduels.players.DuelPlayer;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.function.BiConsumer;
 
 public class DuelGuiButton extends DuelGuiElement
 {
-	protected final BiConsumer<Duels, DuelPlayer> onClick;
+	protected final BiConsumer<Duels, DuelPlayer> onClickLeft;
+	protected final BiConsumer<Duels, DuelPlayer> onClickRight;
 
 	public DuelGuiButton(ItemStack item, BiConsumer<Duels, DuelPlayer> onClick)
 	{
 		super(item);
-		this.onClick = onClick;
+		this.onClickLeft = onClick;
+		this.onClickRight = onClick;
 	}
 
-	public void click(Duels duels, DuelPlayer player)
+	public DuelGuiButton(ItemStack item, BiConsumer<Duels, DuelPlayer> onClickLeft, BiConsumer<Duels, DuelPlayer> onClickRight)
 	{
-		onClick.accept(duels, player);
+		super(item);
+		this.onClickLeft = onClickLeft;
+		this.onClickRight = onClickRight;
+	}
+
+	public void click(Duels duels, DuelPlayer player, ClickType type)
+	{
+		if (type.isLeftClick())
+			onClickLeft.accept(duels, player);
+		else if (type.isRightClick())
+			onClickRight.accept(duels, player);
 	}
 
 
@@ -26,7 +39,8 @@ public class DuelGuiButton extends DuelGuiElement
 	public String toString()
 	{
 		return "DuelGuiButton{" +
-				"onClick=" + onClick +
+				"onClickLeft=" + onClickLeft +
+				", onClickRight=" + onClickRight +
 				", item=" + item +
 				'}';
 	}

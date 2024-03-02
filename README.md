@@ -50,7 +50,7 @@ turbo bombing duels beta plugin
     - [x] simple single window gui helper
     - [ ] multi window gui helper
     - [x] fight kit selector
-    - [ ] kit preview in selector
+    - [x] kit preview in selector
     - [ ] fight map selector
     - [ ] per player kit editor
 - kits

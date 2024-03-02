@@ -2,6 +2,7 @@ package czescjestemadas.kmduels.gui.utils;
 
 import czescjestemadas.kmduels.Duels;
 import czescjestemadas.kmduels.players.DuelPlayer;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
 
 import java.util.Map;
@@ -21,13 +22,13 @@ public class SimpleGui implements DuelGui
 	}
 
 	@Override
-	public void click(Duels duels, DuelPlayer player, int slot)
+	public void click(Duels duels, DuelPlayer player, int slot, ClickType type)
 	{
 		for (Map.Entry<Integer, DuelGuiElement> e : elements.entrySet())
 		{
 			if (e.getKey() == slot && e.getValue() instanceof DuelGuiButton button)
 			{
-				button.click(duels, player);
+				button.click(duels, player, type);
 				break;
 			}
 		}

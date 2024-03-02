@@ -24,7 +24,7 @@ public class GuiListener implements Listener
 			return;
 
 		final DuelPlayer player = duels.getPlayerManager().getPlayer(e.getWhoClicked().getUniqueId());
-		if (duels.getGuiManager().tryClick(player, e.getSlot()))
+		if (duels.getGuiManager().tryClick(player, e.getSlot(), e.getClick()))
 			e.setCancelled(true);
 	}
 

@@ -127,8 +127,9 @@ gui:
       size: 27
       title: "<gray>↓ <black>Kolejka pojedynków"
       items-lore:
-        - "<grey>Graczy w kolejce: <#0BD0FB><kit_players_queued>"
-        - "<grey>Graczy w pojedynku: <#0BD0FB><kit_players_fighting>"
+        - "<gray>Graczy w kolejce: <#0BD0FB><kit_players_queued>"
+        - "<gray>Graczy w pojedynku: <#0BD0FB><kit_players_fighting>"
+        - "<gray>Kliknij PPM by zobaczyć zestaw"
 
     kit-editor:
       size: 27
