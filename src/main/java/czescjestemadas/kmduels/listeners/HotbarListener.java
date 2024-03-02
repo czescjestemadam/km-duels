@@ -3,6 +3,7 @@ package czescjestemadas.kmduels.listeners;
 import czescjestemadas.kmduels.Duels;
 import czescjestemadas.kmduels.hotbar.HotbarState;
 import czescjestemadas.kmduels.players.DuelPlayer;
+import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -21,6 +22,9 @@ public class HotbarListener implements Listener
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	private void onClick(InventoryClickEvent e)
 	{
+		if (e.getWhoClicked().getGameMode() == GameMode.CREATIVE)
+			return;
+
 		final DuelPlayer player = duels.getPlayerManager().getPlayer(e.getWhoClicked().getUniqueId());
 
 		final HotbarState state = duels.getHotbarManager().getState(player);
@@ -31,7 +35,7 @@ public class HotbarListener implements Listener
 	@EventHandler(priority = EventPriority.HIGHEST)
 	private void onInteract(PlayerInteractEvent e)
 	{
-		if (!e.getAction().isRightClick())
+		if (!e.getAction().isRightClick() || e.getPlayer().getGameMode() == GameMode.CREATIVE)
 			return;
 
 		final DuelPlayer player = duels.getPlayerManager().getPlayer(e.getPlayer().getUniqueId());
