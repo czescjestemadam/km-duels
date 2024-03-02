@@ -18,6 +18,7 @@ public final class CommandManager
 		register("duels", new DuelsCommand(duels));
 		register("dkit", new DKitCommand(duels));
 		register("dmap", new DMapCommand(duels));
+		register("party", new PartyCommand(duels));
 	}
 
 	private void register(String name, TabExecutor cmd)

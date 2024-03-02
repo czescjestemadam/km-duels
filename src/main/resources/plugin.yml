@@ -12,6 +12,8 @@ commands:
   dmap:
     permission: km-duels.map.cmd
     aliases: [ darena ]
+  party:
+    permission: km-duels.party.cmd
 
 permissions:
   km-duels.cmd:
@@ -37,4 +39,7 @@ permissions:
   km-duels.map.remove:
     default: op
   km-duels.map.edit:
+    default: op
+
+  km-duels.party.cmd:
     default: op
