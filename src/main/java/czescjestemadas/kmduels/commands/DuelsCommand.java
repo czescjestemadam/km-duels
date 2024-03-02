@@ -45,6 +45,18 @@ public class DuelsCommand implements TabExecutor
 			duels.getPlayerManager().savePlayers();
 			sender.sendMessage("saved players");
 		}
+		else if (args[0].equalsIgnoreCase("debug"))
+		{
+			sender.sendMessage(
+					"§aPlayerManager:§f " + duels.getPlayerManager(),
+					"§aKitManager:§f " + duels.getKitManager(),
+					"§aMapManager:§f " + duels.getMapManager(),
+					"§aFightManager:§f " + duels.getFightManager(),
+					"§aQueueManager:§f " + duels.getQueueManager(),
+					"§aGuiManager:§f " + duels.getGuiManager(),
+					"§aHotbarManager:§f " + duels.getHotbarManager()
+			);
+		}
 
 		return true;
 	}
@@ -53,7 +65,7 @@ public class DuelsCommand implements TabExecutor
 	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args)
 	{
 		if (args.length == 1)
-			return retMatches(args[0], "reload", "save");
+			return retMatches(args[0], "reload", "save", "debug");
 
 		return List.of();
 	}
