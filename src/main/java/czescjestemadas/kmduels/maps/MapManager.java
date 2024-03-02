@@ -41,7 +41,7 @@ public final class MapManager
 			map.setPointA(cfgMap.getVector("point-a"));
 			map.setPointB(cfgMap.getVector("point-b"));
 			map.setSpawnPositions((List<Location>)cfgMap.getList("spawn-positions"));
-			map.setIcon(Material.getMaterial(cfg.getString("icon")));
+			map.setIcon(Material.getMaterial(cfgMap.getString("icon")));
 
 			maps.add(map);
 		}
