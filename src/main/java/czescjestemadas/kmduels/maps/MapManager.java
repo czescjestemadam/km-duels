@@ -61,7 +61,7 @@ public final class MapManager
 			cfgMap.set("point-a", map.getPointA());
 			cfgMap.set("point-b", map.getPointB());
 			cfgMap.set("spawn-positions", map.getSpawnPositions());
-			cfgMap.set("icon", map.getIcon().toString());
+			cfgMap.set("icon", map.getIcon() + "");
 		}
 
 		try

@@ -36,7 +36,7 @@ public class ChatUtils
 				Placeholder.component("kit_displayname", kit.getDisplayname()),
 				Placeholder.unparsed("kit_items", Arrays.toString(kit.getItems())),
 				Placeholder.unparsed("kit_binded_maps", kit.getBindedMaps() + ""),
-				Placeholder.unparsed("kit_icon", kit.getIcon().name())
+				Placeholder.unparsed("kit_icon", kit.getIcon() + "")
 		);
 	}
 
@@ -51,7 +51,7 @@ public class ChatUtils
 				Placeholder.unparsed("map_point_b", map.getPointB() + ""),
 				Placeholder.unparsed("map_spawn_positions", spawnPos + ""),
 				Placeholder.unparsed("map_last_spawn_position", spawnPos.isEmpty() ? "null" : spawnPos.get(spawnPos.size() - 1).toString()),
-				Placeholder.unparsed("map_icon", map.getIcon().name())
+				Placeholder.unparsed("map_icon", map.getIcon() + "")
 		);
 	}
 }
