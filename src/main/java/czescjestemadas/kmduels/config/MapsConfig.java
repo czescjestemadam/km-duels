@@ -11,6 +11,8 @@ public class MapsConfig implements Config
 	public boolean rollbackRemoveEndcrystals;
 	public boolean preventEscaping;
 
+	public boolean setSpawnPositionsToCenter;
+
 	public Component msgHelp;
 	public Component msgListPrefix;
 	public String msgListItem;
@@ -32,6 +34,8 @@ public class MapsConfig implements Config
 		rollback = cfg.getBoolean("rollback");
 		rollbackRemoveEndcrystals = cfg.getBoolean("rollback-remove-endcrystals");
 		preventEscaping = cfg.getBoolean("prevent-escaping");
+
+		setSpawnPositionsToCenter = cfg.getBoolean("set-spawn-positions-to-center");
 
 		final ConfigurationSection msg = cfg.getConfigurationSection("messages");
 		msgHelp = miniMessage().deserialize(msg.getString("help"));

@@ -175,6 +175,8 @@ maps:
   rollback-remove-endcrystals: true
   prevent-escaping: true
 
+  set-spawn-positions-to-center: true
+
   messages:
     help: "<red>/dmap list<newline><red>/dmap <create | remove | displayname | info | pointA | pointB | addSpawnPos | clearSpawnPos | icon> <name>"
     list:
