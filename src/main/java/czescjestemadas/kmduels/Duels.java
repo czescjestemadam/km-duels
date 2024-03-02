@@ -47,7 +47,7 @@ public final class Duels extends JavaPlugin
 		fightManager = new FightManager(this);
 
 		queueManager = new QueueManager(this);
-		queueManager.startMatchFinderTask();
+		queueManager.getMatchFinder().start();
 
 		listenerManager = new ListenerManager(this);
 		listenerManager.registerListeners();

@@ -5,32 +5,30 @@ import czescjestemadas.kmduels.config.QueueConfig;
 import czescjestemadas.kmduels.hotbar.HotbarState;
 import czescjestemadas.kmduels.kits.DuelKit;
 import czescjestemadas.kmduels.players.DuelPlayer;
-import czescjestemadas.kmduels.utils.ChatUtils;
-import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.UUID;
 
 public class QueueManager
 {
 	private final Duels duels;
 	private final QueueConfig cfg;
 	private final Map<DuelKit, DuelQueue> queues = new HashMap<>();
-	private final Map<UUID, Long> lastMatchFinderMsg = new HashMap<>();
+	private final MatchFinder matchFinder;
 
 	public QueueManager(Duels duels)
 	{
 		this.duels = duels;
 		this.cfg = duels.getConfigManager().getQueueConfig();
+		this.matchFinder = new MatchFinder(duels, cfg);
 	}
 
-	public void startMatchFinderTask()
+	public Map<DuelKit, DuelQueue> getQueues()
 	{
-		duels.getServer().getScheduler().runTaskTimer(duels, this::matchFinder, cfg.matchFinderInterval, cfg.matchFinderInterval);
+		return queues;
 	}
 
 	public DuelQueue getQueue(DuelKit kit)
@@ -125,28 +123,9 @@ public class QueueManager
 			player.getPlayer().sendMessage(cfg.msgLeave);
 	}
 
-
-	private void matchFinder()
+	public MatchFinder getMatchFinder()
 	{
-		for (DuelQueue queue : queues.values())
-		{
-			for (DuelQueue.Entry e : queue.getEntries())
-			{
-				sendQueuedMessage(e);
-
-
-			}
-		}
-	}
-
-	private void sendQueuedMessage(DuelQueue.Entry e)
-	{
-		if (lastMatchFinderMsg.getOrDefault(e.player().getOwner(), 0L) + (cfg.matchFinderMessageInterval * 50L) > System.currentTimeMillis())
-			return;
-
-		e.player().getPlayer().sendMessage(ChatUtils.mm(cfg.msgSearching, Placeholder.unparsed("range", e.getWaitingTime() + "")));
-
-		lastMatchFinderMsg.put(e.player().getOwner(), System.currentTimeMillis());
+		return matchFinder;
 	}
 
 
@@ -155,7 +134,7 @@ public class QueueManager
 	{
 		return "QueueManager{" +
 				"queues=" + queues +
-				", lastMatchFinderMsg=" + lastMatchFinderMsg +
+				", matchFinder=" + matchFinder +
 				'}';
 	}
 }
