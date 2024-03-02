@@ -8,6 +8,7 @@ import czescjestemadas.kmduels.players.DuelPlayer;
 import czescjestemadas.kmduels.utils.ChatUtils;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -98,7 +99,7 @@ public class QueueManager
 		return false;
 	}
 
-	public void queue(DuelPlayer player, DuelKit kit, boolean message)
+	public void queue(DuelPlayer player, DuelKit kit, @Nullable HotbarState nextState, boolean message)
 	{
 		if (getQueueEntry(player) != null)
 			return;
@@ -107,17 +108,19 @@ public class QueueManager
 		queue.getEntries().add(new DuelQueue.Entry(player, System.currentTimeMillis()));
 		player.getPlayer().closeInventory();
 
-		duels.getHotbarManager().setState(player, HotbarState.QUEUED);
+		if (nextState != null)
+			duels.getHotbarManager().setState(player, nextState);
 		if (message)
 			player.getPlayer().sendMessage(cfg.msgEnter);
 	}
 
-	public void leaveQueue(DuelPlayer player, boolean message)
+	public void leaveQueue(DuelPlayer player, @Nullable HotbarState nextState, boolean message)
 	{
 		if (!removeQueueEntry(player))
 			return;
 
-		duels.getHotbarManager().setState(player, HotbarState.LOBBY);
+		if (nextState != null)
+			duels.getHotbarManager().setState(player, nextState);
 		if (message)
 			player.getPlayer().sendMessage(cfg.msgLeave);
 	}

@@ -3,6 +3,7 @@ package czescjestemadas.kmduels.gui.selectors;
 import czescjestemadas.kmduels.Duels;
 import czescjestemadas.kmduels.gui.KitPreviewGui;
 import czescjestemadas.kmduels.gui.utils.DuelGuiButton;
+import czescjestemadas.kmduels.hotbar.HotbarState;
 import czescjestemadas.kmduels.kits.DuelKit;
 import czescjestemadas.kmduels.utils.ChatUtils;
 import czescjestemadas.kmduels.utils.ItemBuilder;
@@ -41,7 +42,7 @@ public class RankedFightSelector extends SelectorGui
 
 			final DuelGuiButton button = new DuelGuiButton(
 					new ItemBuilder(kit.getIcon()).displayname(kit.getDisplayname()).lore(lore).build(),
-					(d, player) -> duels.getQueueManager().queue(player, kit, true),
+					(d, player) -> duels.getQueueManager().queue(player, kit, HotbarState.QUEUED, true),
 					(d, player) -> duels.getGuiManager().open(player, new KitPreviewGui(kit))
 			);
 			elements.put(idx, button);

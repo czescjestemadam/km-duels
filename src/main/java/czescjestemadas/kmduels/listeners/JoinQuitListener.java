@@ -40,7 +40,7 @@ public class JoinQuitListener implements Listener
 
 		duels.getHotbarManager().unsetState(player);
 
-		duels.getQueueManager().leaveQueue(player, false);
+		duels.getQueueManager().leaveQueue(player, null, false);
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
