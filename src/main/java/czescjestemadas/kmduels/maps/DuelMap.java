@@ -119,6 +119,13 @@ public class DuelMap
 		this.icon = icon;
 	}
 
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		return obj instanceof DuelMap map ? map.getName().equals(name) : super.equals(obj);
+	}
+
 	@Override
 	public String toString()
 	{

@@ -70,6 +70,12 @@ public class DuelKit
 
 
 	@Override
+	public boolean equals(Object obj)
+	{
+		return obj instanceof DuelKit kit ? kit.getName().equals(name) : super.equals(obj);
+	}
+
+	@Override
 	public String toString()
 	{
 		return "DuelKit{" +
