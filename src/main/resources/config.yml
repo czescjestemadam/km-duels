@@ -229,6 +229,7 @@ party:
     kicked-self: "<red>Wyrzucono cię z party"
     left: "<red>← <player> opuścił party"
     left-self: "<red>Opuszczono party"
+    owner-tried-leave: "<red>By usunąć party wpisz <yellow>/party remove"
     list:
       prefix: "<newline><gray>Publiczne party:"
       item: "<party_name>" # todo
@@ -236,6 +237,7 @@ party:
     player-not-in-party: "<red>Gracz nie jest w party!"
     not-party-owner: "<red>Nie jesteś właścicielem party!"
     already-in-party: "<red>Jesteś już w party!"
+    no-player: "<red>Nie znaleziono takiego gracza"
 
 
 players:

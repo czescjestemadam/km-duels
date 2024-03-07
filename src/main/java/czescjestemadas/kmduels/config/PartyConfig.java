@@ -35,12 +35,14 @@ public class PartyConfig implements Config
 	public Component msgKickedSelf;
 	public String msgLeft;
 	public Component msgLeftSelf;
+	public Component msgOwnerTriedLeave;
 	public Component msgListPrefix;
 	public String msgListItem;
 	public Component msgNotInParty;
 	public Component msgPlayerNotInParty;
 	public Component msgNotPartyOwner;
 	public Component msgAlreadyInParty;
+	public Component msgNoPlayer;
 
 	@Override
 	public void load(ConfigurationSection cfg)
@@ -75,11 +77,13 @@ public class PartyConfig implements Config
 		msgKickedSelf = miniMessage().deserialize(msg.getString("kicked-self"));
 		msgLeft = msg.getString("left");
 		msgLeftSelf = miniMessage().deserialize(msg.getString("left-self"));
+		msgOwnerTriedLeave = miniMessage().deserialize(msg.getString("owner-tried-leave"));
 		msgListPrefix = miniMessage().deserialize(msg.getString("list.prefix"));
 		msgListItem = msg.getString("list.item");
 		msgNotInParty = miniMessage().deserialize(msg.getString("not-in-party"));
 		msgPlayerNotInParty = miniMessage().deserialize(msg.getString("player-not-in-party"));
 		msgNotPartyOwner = miniMessage().deserialize(msg.getString("not-party-owner"));
 		msgAlreadyInParty = miniMessage().deserialize(msg.getString("already-in-party"));
+		msgNoPlayer = miniMessage().deserialize(msg.getString("no-player"));
 	}
 }
