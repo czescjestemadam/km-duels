@@ -198,11 +198,44 @@ maps:
 
 party:
   player-limit: 10
-  chat-prefix: "@"
+  chat:
+    prefix: "@"
+    format: "<green>✉ <pink>[PARTY] <sender>: <reset><message>"
+
+  command-args:
+    chat: "chat"
+    create: "create"
+    remove: "remove"
+    help: "help"
+    info: "info"
+    invite: "invite"
+    join: "join"
+    kick: "kick"
+    leave: "leave"
+    list: "list"
+    settings: "settings"
 
   messages:
+    help: "<red>/party" # todo
     created: "<green>✔ Stworzyłeś party!"
     removed: "<red>✖ Party zostało usunięte!"
+    info: "<newline><gray>Lider party: <green><party_owner><newline><gray>Członków [<white><party_membercount><gray>]: <#0BD0FB><party_members><newline>"
+    invite:
+      sent: "<green>Zaproszenie zostało wysłane"
+      received: "<green><player> zaprosił cię do party"
+    joined: "<green>→ <player> dołączył do party"
+    joined-self: "<green>Dołączono do party"
+    kicked: "<red><player> został wyrzucony z party"
+    kicked-self: "<red>Wyrzucono cię z party"
+    left: "<red>← <player> opuścił party"
+    left-self: "<red>Opuszczono party"
+    list:
+      prefix: "<newline><gray>Publiczne party:"
+      item: "<party_name>" # todo
+    not-in-party: "<red>Nie jesteś w party!"
+    player-not-in-party: "<red>Gracz nie jest w party!"
+    not-party-owner: "<red>Nie jesteś właścicielem party!"
+    already-in-party: "<red>Jesteś już w party!"
 
 
 players:
