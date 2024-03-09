@@ -2,17 +2,19 @@ package czescjestemadas.kmduels.party;
 
 import czescjestemadas.kmduels.players.DuelPlayer;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class DuelParty
 {
-	private final DuelPlayer owner;
-	private final List<DuelPlayer> players = new ArrayList<>();
+	private DuelPlayer owner;
+	private final Set<DuelPlayer> players = new HashSet<>();
+	private boolean open = false;
 
 	public DuelParty(DuelPlayer owner)
 	{
 		this.owner = owner;
+		this.players.add(owner);
 	}
 
 	public DuelPlayer getOwner()
@@ -20,11 +22,29 @@ public class DuelParty
 		return owner;
 	}
 
-	public List<DuelPlayer> getPlayers()
+	public void setOwner(DuelPlayer owner)
+	{
+		this.owner = owner;
+	}
+
+	public Set<DuelPlayer> getPlayers()
 	{
 		return players;
 	}
 
+	public boolean isOpen()
+	{
+		return open;
+	}
 
+	public void setOpen(boolean open)
+	{
+		this.open = open;
+	}
+
+	public String getName()
+	{
+		return "Party " + getOwner().getPlayer().getName();
+	}
 
 }
