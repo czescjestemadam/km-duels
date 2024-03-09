@@ -19,7 +19,8 @@ public enum HotbarState
 	)),
 	PARTY(List.of()),
 	QUEUED(List.of(new HotbarItem(8, new ItemStack(Material.BARRIER), HotbarItemAction.LEAVE_QUEUE))),
-	FIGHT(List.of());
+	FIGHT(List.of()),
+	UNHANDLED(List.of());
 
 	private final List<HotbarItem> items;
 
@@ -54,6 +55,6 @@ public enum HotbarState
 
 	public boolean handleItems()
 	{
-		return this != FIGHT;
+		return items.isEmpty();
 	}
 }
