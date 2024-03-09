@@ -11,7 +11,6 @@ public class PartyConfig implements Config
 	public String chatPrefix;
 	public String chatFormat;
 
-	public String argChat;
 	public String argCreate;
 	public String argRemove;
 	public String argHelp;
@@ -52,7 +51,6 @@ public class PartyConfig implements Config
 		chatFormat = cfg.getString("chat.format");
 
 		final ConfigurationSection args = cfg.getConfigurationSection("command-args");
-		argChat = args.getString("chat");
 		argCreate = args.getString("create");
 		argRemove = args.getString("remove");
 		argHelp = args.getString("help");

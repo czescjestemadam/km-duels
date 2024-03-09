@@ -203,7 +203,6 @@ party:
     format: "<green>✉ <pink>[PARTY] <sender>: <reset><message>"
 
   command-args:
-    chat: "chat"
     create: "create"
     remove: "remove"
     help: "help"
