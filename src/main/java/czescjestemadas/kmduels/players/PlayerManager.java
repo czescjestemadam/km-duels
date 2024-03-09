@@ -96,6 +96,11 @@ public final class PlayerManager
 		duels.getServer().getScheduler().runTaskLater(duels, () -> players.remove(player), 1);
 	}
 
+	public boolean deletePlayer(DuelPlayer player)
+	{
+		final File file = getPlayerdataFile(player);
+		return file.exists() && file.delete();
+	}
 
 	private File getPlayerdataFile(DuelPlayer player)
 	{
