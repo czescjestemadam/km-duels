@@ -200,9 +200,10 @@ party:
   player-limit: 10
   chat:
     prefix: "@"
-    format: "<green>✉ <pink>[PARTY] <sender>: <reset><message>"
+    format: "<green>✉ <light_purple>[PARTY] <sender>: <reset><message>"
 
   command-args:
+    close: "close"
     create: "create"
     remove: "remove"
     help: "help"
@@ -212,12 +213,15 @@ party:
     kick: "kick"
     leave: "leave"
     list: "list"
+    open: "open"
     settings: "settings"
 
   messages:
     help: "<red>/party" # todo
     created: "<green>✔ Stworzyłeś party!"
     removed: "<red>✖ Party zostało usunięte!"
+    opened: "<yellow>Ustawiono party na <green>publiczne"
+    closed: "<yellow>Ustawiono party na <red>prywatne"
     info: "<newline><gray>Lider party: <green><party_owner><newline><gray>Członków [<white><party_membercount><gray>]: <#0BD0FB><party_members><newline>"
     invite:
       sent: "<green>Zaproszenie zostało wysłane"
@@ -230,7 +234,7 @@ party:
     left-self: "<red>Opuszczono party"
     owner-tried-leave: "<red>By usunąć party wpisz <yellow>/party remove"
     list:
-      prefix: "<newline><gray>Publiczne party:"
+      prefix: "<newline><gray>Publiczne party: "
       item: "<party_name>" # todo
     not-in-party: "<red>Nie jesteś w party!"
     player-not-in-party: "<red>Gracz nie jest w party!"

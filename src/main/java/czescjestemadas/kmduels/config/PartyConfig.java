@@ -11,6 +11,7 @@ public class PartyConfig implements Config
 	public String chatPrefix;
 	public String chatFormat;
 
+	public String argClose;
 	public String argCreate;
 	public String argRemove;
 	public String argHelp;
@@ -20,11 +21,14 @@ public class PartyConfig implements Config
 	public String argKick;
 	public String argLeave;
 	public String argList;
+	public String argOpen;
 	public String argSettings;
 
 	public Component msgHelp;
 	public Component msgCreated;
 	public Component msgRemoved;
+	public Component msgOpened;
+	public Component msgClosed;
 	public String msgInfo;
 	public Component msgInviteSent;
 	public String msgInviteReceived;
@@ -51,6 +55,7 @@ public class PartyConfig implements Config
 		chatFormat = cfg.getString("chat.format");
 
 		final ConfigurationSection args = cfg.getConfigurationSection("command-args");
+		argClose = args.getString("close");
 		argCreate = args.getString("create");
 		argRemove = args.getString("remove");
 		argHelp = args.getString("help");
@@ -60,12 +65,15 @@ public class PartyConfig implements Config
 		argKick = args.getString("kick");
 		argLeave = args.getString("leave");
 		argList = args.getString("list");
+		argOpen = args.getString("open");
 		argSettings = args.getString("settings");
 
 		final ConfigurationSection msg = cfg.getConfigurationSection("messages");
 		msgHelp = miniMessage().deserialize(msg.getString("help"));
 		msgCreated = miniMessage().deserialize(msg.getString("created"));
 		msgRemoved = miniMessage().deserialize(msg.getString("removed"));
+		msgOpened = miniMessage().deserialize(msg.getString("opened"));
+		msgClosed = miniMessage().deserialize(msg.getString("closed"));
 		msgInfo = msg.getString("info");
 		msgInviteSent = miniMessage().deserialize(msg.getString("invite.sent"));
 		msgInviteReceived = msg.getString("invite.received");
