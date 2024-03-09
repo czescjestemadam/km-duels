@@ -55,6 +55,6 @@ public enum HotbarState
 
 	public boolean handleItems()
 	{
-		return items.isEmpty();
+		return !items.isEmpty();
 	}
 }
