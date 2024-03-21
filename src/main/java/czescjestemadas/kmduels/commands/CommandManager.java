@@ -1,6 +1,7 @@
 package czescjestemadas.kmduels.commands;
 
 import czescjestemadas.kmduels.Duels;
+import czescjestemadas.kmduels.commands.utils.parsers.ArgParsers;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;
 
@@ -15,6 +16,8 @@ public final class CommandManager
 
 	public void registerCommands()
 	{
+		ArgParsers.register(duels);
+
 		register("duels", new DuelsCommand(duels));
 		register("dkit", new DKitCommand(duels));
 		register("dmap", new DMapCommand(duels));

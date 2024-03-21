@@ -57,6 +57,17 @@ public final class PlayerManager
 		throw new IllegalStateException("no DuelPlayer found with uuid " + id);
 	}
 
+	public @NotNull DuelPlayer getPlayer(String name)
+	{
+		for (DuelPlayer player : players)
+		{
+			if (player.getPlayer().getName().equalsIgnoreCase(name))
+				return player;
+		}
+
+		throw new IllegalStateException("no DuelPlayer found with name " + name);
+	}
+
 	public void loadPlayer(DuelPlayer player)
 	{
 		final File file = getPlayerdataFile(player);
