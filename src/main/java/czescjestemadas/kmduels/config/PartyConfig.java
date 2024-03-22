@@ -11,6 +11,8 @@ public class PartyConfig implements Config
 	public String chatPrefix;
 	public String chatFormat;
 
+	public String argBan;
+	public String argUnban;
 	public String argClose;
 	public String argCreate;
 	public String argRemove;
@@ -36,6 +38,9 @@ public class PartyConfig implements Config
 	public Component msgJoinedSelf;
 	public String msgKicked;
 	public Component msgKickedSelf;
+	public String msgBanned;
+	public Component msgBannedSelf;
+	public String msgUnbanned;
 	public String msgLeft;
 	public Component msgLeftSelf;
 	public Component msgOwnerTriedLeave;
@@ -55,6 +60,8 @@ public class PartyConfig implements Config
 		chatFormat = cfg.getString("chat.format");
 
 		final ConfigurationSection args = cfg.getConfigurationSection("command-args");
+		argBan = args.getString("ban");
+		argUnban = args.getString("unban");
 		argClose = args.getString("close");
 		argCreate = args.getString("create");
 		argRemove = args.getString("remove");
@@ -81,6 +88,9 @@ public class PartyConfig implements Config
 		msgJoinedSelf = miniMessage().deserialize(msg.getString("joined-self"));
 		msgKicked = msg.getString("kicked");
 		msgKickedSelf = miniMessage().deserialize(msg.getString("kicked-self"));
+		msgBanned = msg.getString("banned");
+		msgBannedSelf = miniMessage().deserialize(msg.getString("banned-self"));
+		msgUnbanned = msg.getString("unbanned");
 		msgLeft = msg.getString("left");
 		msgLeftSelf = miniMessage().deserialize(msg.getString("left-self"));
 		msgOwnerTriedLeave = miniMessage().deserialize(msg.getString("owner-tried-leave"));

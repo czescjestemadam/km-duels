@@ -203,6 +203,8 @@ party:
     format: "<green>✉ <light_purple>[PARTY] <sender>: <reset><message>"
 
   command-args:
+    ban: "ban"
+    unban: "unban"
     close: "close"
     create: "create"
     remove: "remove"
@@ -230,6 +232,9 @@ party:
     joined-self: "<green>Dołączono do party"
     kicked: "<red><player> został wyrzucony z party"
     kicked-self: "<red>Wyrzucono cię z party"
+    banned: "<red><player> został zbanowany w party"
+    banned-self: "<red>Zbanowano cię w party"
+    unbanned: "<yellow><player> został odbanowany w party"
     left: "<red>← <player> opuścił party"
     left-self: "<red>Opuszczono party"
     owner-tried-leave: "<red>By usunąć party wpisz <yellow>/party remove"

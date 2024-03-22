@@ -42,6 +42,65 @@ public class PartyCommand implements TabExecutor
 
 		final DuelPlayer player = sender instanceof Player mcplayer ? duels.getPlayerManager().getPlayer(mcplayer.getUniqueId()) : null;
 
+		if (args.length == 2 && args[0].equalsIgnoreCase(cfg.argBan) && player != null)
+		{
+			final DuelParty party = duels.getPartyManager().getParty(player);
+			if (party == null)
+				sender.sendMessage(cfg.msgNotInParty);
+			if (!party.getOwner().equals(player))
+				sender.sendMessage(cfg.msgNotPartyOwner);
+			else
+			{
+				final Player mctarget = duels.getServer().getPlayer(args[1]);
+				if (mctarget == null)
+				{
+					sender.sendMessage(cfg.msgNoPlayer);
+					return false;
+				}
+
+				final DuelPlayer target = duels.getPlayerManager().getPlayer(mctarget.getUniqueId());
+				if (player.equals(target) || party.getOwner().equals(target))
+				{
+					sender.sendMessage(cfg.msgNoPlayer);
+					return false;
+				}
+
+				party.getPlayers().remove(target);
+				party.banPlayer(mctarget.getUniqueId());
+				target.getPlayer().sendMessage(cfg.msgBannedSelf);
+
+				final Component msgBanned = ChatUtils.mm(cfg.msgBanned, Placeholder.unparsed("player", target.getPlayer().getName()));
+				for (DuelPlayer partyPlayer : party.getPlayers())
+					partyPlayer.getPlayer().sendMessage(msgBanned);
+			}
+			return true;
+		}
+
+		if (args.length == 2 && args[0].equalsIgnoreCase(cfg.argUnban) && player != null)
+		{
+			final DuelParty party = duels.getPartyManager().getParty(player);
+			if (party == null)
+				sender.sendMessage(cfg.msgNotInParty);
+			if (!party.getOwner().equals(player))
+				sender.sendMessage(cfg.msgNotPartyOwner);
+			else
+			{
+				final Player mctarget = duels.getServer().getPlayer(args[1]);
+				if (mctarget == null)
+				{
+					sender.sendMessage(cfg.msgNoPlayer);
+					return false;
+				}
+
+				party.unbanPlayer(mctarget.getUniqueId());
+
+				final Component msgUnbanned = ChatUtils.mm(cfg.msgUnbanned, Placeholder.unparsed("player", mctarget.getName()));
+				for (DuelPlayer partyPlayer : party.getPlayers())
+					partyPlayer.getPlayer().sendMessage(msgUnbanned);
+			}
+			return true;
+		}
+
 		if (args.length == 1 && args[0].equalsIgnoreCase(cfg.argClose) && player != null)
 		{
 			final DuelParty party = duels.getPartyManager().getParty(player);
@@ -238,10 +297,10 @@ public class PartyCommand implements TabExecutor
 	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args)
 	{
 		if (args.length == 1)
-			return retMatches(args[0], cfg.argClose, cfg.argCreate, cfg.argRemove, cfg.argHelp, cfg.argInfo, cfg.argInvite, cfg.argJoin, cfg.argKick, cfg.argLeave, cfg.argList, cfg.argOpen, cfg.argSettings);
+			return retMatches(args[0], cfg.argBan, cfg.argUnban, cfg.argClose, cfg.argCreate, cfg.argRemove, cfg.argHelp, cfg.argInfo, cfg.argInvite, cfg.argJoin, cfg.argKick, cfg.argLeave, cfg.argList, cfg.argOpen, cfg.argSettings);
 
 		// todo
-		if (args.length == 2 && argEquals(args[0], cfg.argInfo))
+		if (args.length == 2 && argEquals(args[0], cfg.argBan, cfg.argUnban, cfg.argInfo))
 			return null;
 
 		return List.of();
